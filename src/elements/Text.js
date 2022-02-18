@@ -22,6 +22,7 @@ Text.defaultProps = {
   size: "14px",
   center: false,
   margin: false,
+  flex: false,
 };
 
 const P = styled.p`
@@ -31,9 +32,9 @@ const P = styled.p`
   transition: ease all 0.1s;
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? "700" : "400")};
-  @media only screen and (max-width: 500px) {
+  /* @media only screen and (max-width: 500px) {
     min-width: 70%;
-  }
+  } */
 `;
 
 export default Text;

@@ -4,7 +4,7 @@ import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
 import User from "./modules/user";
-// import Post from "./modules/post";
+import Post from "./modules/post";
 // import Image from "./modules/image";
 // import Star from "./modules/star";
 // import Like from "./modules/like";
@@ -14,24 +14,24 @@ export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   user: User,
-  //   post: Post,
-  //   image: Image,
-  //   star: Star,
-  //   like: Like,
-  //   comment: Comment,
+  post: Post,
+  // image: Image,
+  // star: Star,
+  // like: Like,
+  // comment: Comment,
   router: connectRouter(history),
 });
 
 const middlewares = [thunk.withExtraArgument({ history: history })];
 
-// // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
-// const env = process.env.NODE_ENV;
+// 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
+const env = process.env.NODE_ENV;
 
-// // 개발환경에서는 로거라는 걸 하나만 더 써볼게요.
-// if (env === "development") {
-//   const { logger } = require("redux-logger");
-//   middlewares.push(logger);
-// }
+// 개발환경에서는 로거라는 걸 하나만 더 써볼게요.
+if (env === "development") {
+  const { logger } = require("redux-logger");
+  middlewares.push(logger);
+}
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -42,6 +42,6 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-// let store = (initialStore) => createStore(rootReducer, enhancer);
-let store = (initialStore) => createStore(rootReducer);
+let store = (initialStore) => createStore(rootReducer, enhancer);
+// let store = (initialStore) => createStore(rootReducer);
 export default store();

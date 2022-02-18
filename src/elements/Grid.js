@@ -5,7 +5,10 @@ const Grid = (props) => {
   const {
     is_end,
     is_flex,
+    is_colum,
+    is_center, 
     width,
+    height, 
     margin,
     padding,
     bg,
@@ -19,8 +22,11 @@ const Grid = (props) => {
 
   const styles = {
     is_flex: is_flex,
-    is_end: is_end,
+    is_end: is_end, 
+    is_colum: is_colum, 
+    is_center: is_center,
     width: width,
+    height: height, 
     margin: margin,
     padding: padding,
     bg: bg,
@@ -42,7 +48,10 @@ Grid.defaultProps = {
   children: null,
   is_flex: false,
   is_end: false,
+  is_center: false,
+  is_colum: false,
   width: "100%",
+  height: "100%", 
   padding: false,
   margin: false,
   bg: false,
@@ -55,7 +64,7 @@ Grid.defaultProps = {
 
 const GridBox = styled.div`
   width: ${(props) => props.width};
-  height: 100%;
+  height: ${(props) => props.height}; 
   box-sizing: border-box;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
@@ -80,6 +89,21 @@ const GridBox = styled.div`
     ${(props) =>
       props.box_shadow ? `box-shadow: rgb(222 222 222) 0px 6px 18px 0px` : ""}
   }
+
+  ${(
+    props 
+  ) =>
+    props.is_center
+      ? `display: flex; align-items: center; justify-content: flex-end; `
+      : ""}
+
+${(
+    props 
+  ) =>
+    props.is_colum
+      ? `display: flex; align-items: center; flex-direction: colum; `
+      : ""}
+
   @media only screen and (max-width: 960px) {
   }
 `;

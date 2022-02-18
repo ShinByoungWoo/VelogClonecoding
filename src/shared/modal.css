@@ -19,6 +19,7 @@
   margin: 0 auto;
   border-radius: 5px;
   background-color: #fff;
+  display: flex;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
   animation: modal-show 0.3s;
   overflow: hidden;
@@ -47,7 +48,7 @@
   padding: 16px;
   height: 450px;
   /* border-bottom: 1px solid #dee2e6;
-  border-top: 1px solid #dee2e6; */
+    border-top: 1px solid #dee2e6; */
 }
 
 .modal > section > main > .leftside {
@@ -103,4 +104,14 @@
   to {
     opacity: 1;
   }
+}
+
+.open {
+  background-color: white;
+  position: relative;
+  right: -300px;
+  width: 0;
+  font-weight: 600;
+  font-size: 24px;
+  
 }
