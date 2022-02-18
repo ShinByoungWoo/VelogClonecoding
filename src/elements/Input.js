@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Text, Grid } from "./Index";
+import Text from "../elements/Text";
+import Grid from "../elements/Grid";
 
 const Input = (props) => {
   const {
@@ -58,7 +59,7 @@ const ElTextarea = styled.textarea`
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid #f68843;
+  border-bottom: 1px solid black;
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
@@ -68,7 +69,7 @@ const ElInput = styled.input`
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid #f68843;
+  border-bottom: 1px solid black;
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
