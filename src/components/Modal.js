@@ -3,7 +3,7 @@ import "../shared/modal.css";
 import styled from "styled-components";
 import { Grid, Button, Text } from "../elements/Index";
 import { BsGithub, BsGoogle, BsFacebook } from "react-icons/bs";
-import {GrClose} from "react-icons/gr"
+import { GrClose } from "react-icons/gr";
 
 import { history } from "../redux/configureStore";
 
@@ -43,7 +43,7 @@ const Modal = (props) => {
             {/* 로그인 화면 왼쪽  */}
             <InputGrid>
               <button className="open" onClick={close}>
-              <GrClose/>
+                <GrClose />
               </button>
               <Grid>
                 <Text bold size="21px">
@@ -105,17 +105,7 @@ const Modal = (props) => {
   );
 };
 
-// const Wrapper = styled.div`
-//   display: flex;
-//   width: 606px;
-//   height: 480px;
-//   box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.9);
 
-// 임시
-//   position: fixed;
-//   top: 30px;
-//   right: 500px;s
-// `;
 
 const ImgGrid = styled.div`
   display: flex;
@@ -137,7 +127,7 @@ const InputGrid = styled.div`
   /* flex: 1 1 0%; */
   flex-direction: column;
   background-color: #ffffff;
-  padding: 32px;
+  padding: 0px 32px;
   /* margin-top: 44px; */
   text-align: left;
 `;
