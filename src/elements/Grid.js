@@ -5,10 +5,11 @@ const Grid = (props) => {
   const {
     is_end,
     is_flex,
+    flex_wrap,
     is_colum,
-    is_center, 
+    is_center,
     width,
-    height, 
+    height,
     margin,
     padding,
     bg,
@@ -22,11 +23,11 @@ const Grid = (props) => {
 
   const styles = {
     is_flex: is_flex,
-    is_end: is_end, 
-    is_colum: is_colum, 
+    is_end: is_end,
+    is_colum: is_colum,
     is_center: is_center,
     width: width,
-    height: height, 
+    height: height,
     margin: margin,
     padding: padding,
     bg: bg,
@@ -34,6 +35,7 @@ const Grid = (props) => {
     border: border,
     border_radius: border_radius,
     box_shadow: box_shadow,
+    flex_wrap: flex_wrap,
   };
   return (
     <React.Fragment>
@@ -51,7 +53,7 @@ Grid.defaultProps = {
   is_center: false,
   is_colum: false,
   width: "100%",
-  height: "100%", 
+  height: "100%",
   padding: false,
   margin: false,
   bg: false,
@@ -60,11 +62,12 @@ Grid.defaultProps = {
   border: false,
   border_radius: false,
   box_shadow: false,
+  flex_wrap: false,
 };
 
 const GridBox = styled.div`
   width: ${(props) => props.width};
-  height: ${(props) => props.height}; 
+  height: ${(props) => props.height};
   box-sizing: border-box;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
@@ -73,6 +76,7 @@ const GridBox = styled.div`
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between; `
       : ""}
+  ${(props) => (props.flex_wrap ? `flex-wrap : wrap;` : "")}
   ${(props) =>
     props.is_end
       ? `display: flex; align-items: center; justify-content: flex-end; `
@@ -90,21 +94,19 @@ const GridBox = styled.div`
       props.box_shadow ? `box-shadow: rgb(222 222 222) 0px 6px 18px 0px` : ""}
   }
 
-  ${(
-    props 
-  ) =>
+  ${(props) =>
     props.is_center
-      ? `display: flex; align-items: center; justify-content: flex-end; `
+      ? `display: flex; align-items: center; justify-content: center; `
       : ""}
 
-${(
-    props 
-  ) =>
+  ${(props) =>
     props.is_colum
       ? `display: flex; align-items: center; flex-direction: colum; `
       : ""}
 
-  @media only screen and (max-width: 960px) {
+  ${
+    "" /* @media only screen and (max-width: 960px) {
+  } */
   }
 `;
 

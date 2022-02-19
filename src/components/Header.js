@@ -3,6 +3,7 @@ import Text from "../elements/Text";
 import Grid from "../elements/Grid";
 import Button from "../elements/Button";
 import Modal from "./Modal";
+import styled from "styled-components";
 
 const Header = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -16,20 +17,27 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      <Grid is_flex padding="0px 0px 0px 16px">
-        <Text size="25px" bold>
-          Veloginplease
+      <Grid is_flex padding="0px 5rem">
+        <Container>
+          <Text size="21px" bold>
+            velog
+          </Text>
+        </Container>
+        <Text bold center>
+          로그인
         </Text>
-        <Button
-          color="#000000"
-          width="50px"
-          text="로그인"
-          _onClick={openModal}
-        />
         <Modal open={modalOpen} close={closeModal} header="로그인 하기"></Modal>
       </Grid>
     </React.Fragment>
   );
 };
+
+const Container = styled.div`
+  @import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@700&display=swap");
+
+  * {
+    font-family: "Fira Mono", monospace;
+  }
+`;
 
 export default Header;

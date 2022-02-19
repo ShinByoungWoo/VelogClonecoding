@@ -4,6 +4,7 @@ import React from "react";
 // import Login from "../pages/Login";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
+import Main from "../pages/Main";
 
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
@@ -25,7 +26,7 @@ function App() {
         {/* <Route path="/" exact component={Main} /> */}
 
         {/* 테스트용 */}
-        <Route path="/" exact component={Modal} /> 
+        <Route path="/" exact component={Main} />
       </ConnectedRouter>
     </React.Fragment>
   );

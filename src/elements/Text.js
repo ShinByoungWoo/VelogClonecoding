@@ -2,7 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 const Text = (props) => {
-  const { bold, color, size, children, center, margin } = props;
+  const {
+    bold,
+    color,
+    size,
+    children,
+    center,
+    margin,
+    line_height,
+    height,
+    overflow,
+  } = props;
 
   const styles = {
     bold: bold,
@@ -10,6 +20,9 @@ const Text = (props) => {
     size: size,
     center: center,
     margin: margin,
+    line_height: line_height,
+    height: height,
+    overflow: overflow,
   };
 
   return <P {...styles}>{children}</P>;
@@ -32,9 +45,9 @@ const P = styled.p`
   transition: ease all 0.1s;
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? "700" : "400")};
-  /* @media only screen and (max-width: 500px) {
-    min-width: 70%;
-  } */
+  line-height: ${(props) => props.line_height};
+  height: ${(props) => props.height};
+  overflow: ${(props) => props.overflow};
 `;
 
 export default Text;
