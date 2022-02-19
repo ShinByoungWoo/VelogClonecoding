@@ -35,7 +35,7 @@ Image.defaultProps = {
 //게시판 작성 이미지입니다!
 const AspectOutter = styled.div`
   ${(props) => (props.width ? `width: ${props.width};` : "")}
-  max-height: 100%
+  max-height: 100%;
     display: flex;
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.marginLeft ? `margin-left: ${props.marginLeft};` : "")}
