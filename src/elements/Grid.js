@@ -19,6 +19,7 @@ const Grid = (props) => {
     border,
     border_radius,
     box_shadow,
+    flex,
   } = props;
 
   const styles = {
@@ -35,6 +36,7 @@ const Grid = (props) => {
     border: border,
     border_radius: border_radius,
     box_shadow: box_shadow,
+    flex: flex,
     flex_wrap: flex_wrap,
   };
   return (
@@ -62,10 +64,13 @@ Grid.defaultProps = {
   border: false,
   border_radius: false,
   box_shadow: false,
+  flex: false,
   flex_wrap: false,
 };
 
 const GridBox = styled.div`
+  ${(props) => (props.flex_wrap ? `flex-wrap : wrap;` : "")}
+  ${(props) => (props.flex ? `display: flex; ` : "")}
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   box-sizing: border-box;
@@ -76,7 +81,6 @@ const GridBox = styled.div`
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between; `
       : ""}
-  ${(props) => (props.flex_wrap ? `flex-wrap : wrap;` : "")}
   ${(props) =>
     props.is_end
       ? `display: flex; align-items: center; justify-content: flex-end; `
@@ -96,7 +100,7 @@ const GridBox = styled.div`
 
   ${(props) =>
     props.is_center
-      ? `display: flex; align-items: center; justify-content: center; `
+      ? `display: flex; align-items: center; justify-content: flex-end; `
       : ""}
 
   ${(props) =>
@@ -104,9 +108,7 @@ const GridBox = styled.div`
       ? `display: flex; align-items: center; flex-direction: colum; `
       : ""}
 
-  ${
-    "" /* @media only screen and (max-width: 960px) {
-  } */
+  @media only screen and (max-width: 960px) {
   }
 `;
 

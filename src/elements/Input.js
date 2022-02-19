@@ -12,6 +12,7 @@ const Input = (props) => {
     multiLine,
     value,
     defaultValue,
+    border,
   } = props;
 
   if (multiLine) {
@@ -21,6 +22,7 @@ const Input = (props) => {
         <ElTextarea
           rows={10}
           value={value}
+          border={border}
           placeholder={placeholder}
           onChange={_onChange}
           defaultValue={defaultValue}
@@ -35,6 +37,7 @@ const Input = (props) => {
         {label && <Text margin="0px">{label}</Text>}
         <ElInput
           type={type}
+          border={border}
           placeholder={placeholder}
           onChange={_onChange}
           defaultValue={defaultValue}
@@ -52,23 +55,18 @@ Input.defaultProps = {
   value: "",
   _onChange: () => {},
   defaultValue: "",
+  border: false,
 };
 
 const ElTextarea = styled.textarea`
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid #f68843;
+  border: ${(props) => props.border};
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
 `;
 
 const ElInput = styled.input`
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid #f68843;
+  border: ${(props) => props.border};
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
