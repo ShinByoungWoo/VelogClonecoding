@@ -1,12 +1,16 @@
+//function import
 import React from "react";
-import Modal from "../components/Modal";
-import styled, { keyframes } from "styled-components";
-import { Grid, Button, Text } from "../elements/Index";
-import { BsGithub, BsGoogle, BsFacebook } from "react-icons/bs";
-
+import "../shared/modal.css";
+import Modal_login from "../components/Modal_login";
+import { ConnectedRouter } from "connected-react-router";
+import { Route } from "react-router-dom";
 import { history } from "../redux/configureStore";
 
-const Login = (props) => {
+//Page Import
+import Login from "../pages/Join";
+import Header from "../components/Header";
+function App() {
+  // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const openModal = () => {
@@ -18,10 +22,15 @@ const Login = (props) => {
 
   return (
     <React.Fragment>
+      <Header />
       <button onClick={openModal}>모달팝업</button>
-      <Modal open={modalOpen} close={closeModal} header="로그인 하기"></Modal>
+      <Modal_login
+        open={modalOpen}
+        close={closeModal}
+        header="이게 되네"
+      ></Modal_login>
     </React.Fragment>
   );
-};
+}
 
-export default Login;
+export default App;

@@ -1,21 +1,48 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
+//style
+import styled from "styled-components";
 import { Grid } from "../elements/Index";
 
 const Write = (props) => {
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState("");
+  const [tag, setTag] = useState("");
+  const [content, setContent] = useState("");
+
+  const publish = () => {
+    if (title === "" || tag === "" || content === "") {
+      window.alert("내용을 모두 입력하여 주세요");
+      return;
+    }
+
+    dispatch(userActions.addPostDB(title, tag, content));
+  };
+
   return (
     <React.Fragment>
       <Grid flex>
         <LeftArea>
-          <TitleAreas border="none" placeholder="제목을 입력하세요" />
+          <TitleAreas
+            border="none"
+            placeholder="제목을 입력하세요"
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <TitleLine />
-          <TagArea placeholder="태그를 입력하세요" />
+          <TagArea
+            placeholder="태그를 입력하세요"
+            onChange={(e) => setTag(e.target.value)}
+          />
 
           <div>텍스트 에디터 구역</div>
 
           <MarkDownArea>
-            <ContentArea placeholder="당신의 이야기를 적어보세요..." />
+            <ContentArea
+              placeholder="당신의 이야기를 적어보세요..."
+              onChange={(e) => setContent(e.target.value)}
+            />
           </MarkDownArea>
           <FooterArea>
             <div>
@@ -24,7 +51,7 @@ const Write = (props) => {
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <SaveBtn>임시저장</SaveBtn>
-              <AddBtn>출간하기</AddBtn>
+              <AddBtn onClick={publish}>출간하기</AddBtn>
             </div>
           </FooterArea>
         </LeftArea>

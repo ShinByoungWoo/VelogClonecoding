@@ -5,10 +5,10 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 import moment from "moment";
 
 const CommentList = (props) => {
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
-  const post_id = props.post;
-  const comments = props.comment_list[post_id];
+  //   const post_id = props.post;
+  //   const comments = props.comment_list[post_id];
 
   return (
     <React.Fragment>
@@ -18,10 +18,10 @@ const CommentList = (props) => {
             return <CommentItem key={idx} {...p} />;
           }
         })} */}
+      <Text>이렇게 하면 댓글이 달리나요</Text>
     </React.Fragment>
   );
 };
-// }
 
 export default CommentList;
 

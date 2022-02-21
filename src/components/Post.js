@@ -23,12 +23,12 @@ const Post = (props) => {
             <Image
               size="cover"
               border_radius="10px"
-              src="http://media.vlpt.us/images/heyiminhye/post/986bbad3-1ca5-4628-8a2e-1498bd0acbb2/hr-process-gd20a0046a_1280.png"
+              src="https://media.vlpt.us/images/seongkyun/post/0226f2c5-3af3-4505-8311-57e06c5b71c5/31890968_1513214132122987_309876006301204480_n.jpg"
             />
           </Link>
           <Grid padding="16px 16px 5px 16px">
             <Text size="0.975rem" bold>
-              안녕하세요, 저는 프론트엔드 신입에 지원...
+              신입 프론트엔드 개발자가 되려고 한다면
             </Text>
             <Text
               size="0.875rem"
@@ -36,11 +36,12 @@ const Post = (props) => {
               margin="0px 0px 1.5rem"
               line_height="1.5"
             >
-              {" "}
-              개발자가 되려고 결심한 이유 그리고 신입프론트 개발자로 취업을
-              준비하면서 면접에서 받은 질문과 답변을 총정리
+              신입 프론트엔드 개발자가 되려고 한다면 신입 프론트엔드 개발자가
+              되려고 한다면 신입 프론트엔드 개발자가 되려고 한다면 신입
+              프론트엔드 개발자가 되려고 한다면
             </Text>
-            <Text>2021.02.19 / 16개의 댓글</Text>
+            <Text>2021.02.20</Text>
+            <Text>15개의 댓글</Text>
           </Grid>
           <Grid padding="0px 16px" border="1px solid #F1F3F5" is_flex>
             <Text>by Noah Ko</Text>
@@ -68,3 +69,34 @@ const Cards = styled.div`
 `;
 
 export default Post;
+
+// <React.Fragment>
+// <Grid width="auto">
+//   <Cards>
+//     <Link to="/Detail">
+//       <Image size="cover" border_radius="10px" src={img_url} />
+//     </Link>
+//     <Grid padding="16px 16px 5px 16px">
+//       <Text size="0.975rem" bold>
+//         {title}
+//       </Text>
+//       <Text
+//         size="0.875rem"
+//         bold
+//         margin="0px 0px 1.5rem"
+//         line_height="1.5"
+//       >
+//         {content}
+//       </Text>
+//       <Text>{createDate}</Text>
+//       <Text>`${comment.length}개의 댓글`</Text>
+//     </Grid>
+//     <Grid padding="0px 16px" border="1px solid #F1F3F5" is_flex>
+//       <Text>`by ${nickname}`</Text>
+//       <Text>
+//         <FaHeart />
+//       </Text>
+//     </Grid>
+//   </Cards>
+// </Grid>
+// </React.Fragment>

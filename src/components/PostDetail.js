@@ -26,8 +26,6 @@ const PostD = () => {
           준비가 필요하다고 봅니다.
         </Text>
       </Grid>
-      <CommentWrite />
-      {/* <CommentList /> */}
     </React.Fragment>
   );
 };

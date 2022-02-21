@@ -7,6 +7,7 @@ import Detail from "../pages/PostDetail";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
+import Login from "../pages/Login";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" exact component={Main} />
         <Route path="/write" exact component={Write} />
         <Route path="/Detail" exact component={Detail} />
+        <Route path="/login" exact component={Login} />
       </ConnectedRouter>
     </React.Fragment>
   );

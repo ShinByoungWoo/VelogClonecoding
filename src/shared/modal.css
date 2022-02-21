@@ -14,9 +14,9 @@
   border: 0;
 }
 .modal > section {
-  width: 90%;
-  max-width: 606px;
-  height: 480px;
+  width: 100%;
+  max-width: 620px;
+  height: 580px;
   margin: 0 auto;
   border-radius: 5px;
   background-color: #fff;
@@ -64,9 +64,9 @@
 }
 
 .modal > section > main > .rightside {
-  padding: 90px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   width: 50%;
-  height: 20%;
+  height: auto;
   padding-left: 10px;
   text-align: left;
 }
@@ -115,5 +115,4 @@
   width: 0;
   font-weight: 600;
   font-size: 24px;
-  
 }
