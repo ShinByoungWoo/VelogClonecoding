@@ -32,9 +32,9 @@ const Header = (props) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  const onClickModal = () => {
-    setIsLoginMode(!isLoginMode);
-  };
+  // const onClickModal = () => {
+  //   setIsLoginMode(!isLoginMode);
+  // };
 
   return (
     <React.Fragment>
@@ -96,8 +96,8 @@ const Header = (props) => {
           <Modal_login open={modalOpen} close={closeModal}></Modal_login>
         </React.Fragment>
 
-        {/* 로그인 전 : 로그인 후
-        {is_login ? (
+        {/* 로그인 후 : 로그인 전
+        {is_local ? (
           <React.Fragment>
             <Grid is_end>
               <Button

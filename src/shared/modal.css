@@ -15,8 +15,8 @@
 }
 .modal > section {
   width: 100%;
-  max-width: 620px;
-  height: 580px;
+  max-width: 606px;
+  height: auto;
   margin: 0 auto;
   border-radius: 5px;
   background-color: #fff;
@@ -47,14 +47,14 @@
   display: flex;
   justify-content: space-between;
   padding: 16px;
-  height: 450px;
+  height: auto;
   /* border-bottom: 1px solid #dee2e6;
     border-top: 1px solid #dee2e6; */
 }
 
 .modal > section > main > .leftside {
-  padding-top: 130px;
-  width: 50%;
+  padding-top: 200px;
+  width: 35%;
   text-align: center;
   border-right: 1px solid #6c757d;
 }
@@ -65,7 +65,7 @@
 
 .modal > section > main > .rightside {
   padding: 0px 0px 0px 0px;
-  width: 50%;
+  width: 65%;
   height: auto;
   padding-left: 10px;
   text-align: left;
