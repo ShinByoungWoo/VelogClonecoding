@@ -12,9 +12,9 @@ const Button = (props) => {
     width,
     padding,
     cursor,
-    bg, 
-    display, 
-    borderRadius, 
+    bg,
+    display,
+    borderRadius,
     border,
   } = props;
 
@@ -24,10 +24,10 @@ const Button = (props) => {
     padding: padding,
     height: height,
     cursor: cursor,
-    display: display, 
+    display: display,
     borderRadius: borderRadius,
-    bg: bg, 
-    border:border,
+    bg: bg,
+    border: border,
   };
 
   return (
@@ -48,27 +48,24 @@ Button.defaultProps = {
   height: "100%",
   padding: "12px 0px",
   cursor: null,
-  display: "false", 
-  borderRadius: false, 
-  bg: false, 
+  display: "false",
+  borderRadius: false,
+  bg: false,
   border: "",
 };
 
 const MyButton = styled.button`
-
   cursor: ${(props) => props.cursor};
-  display: ${(props) => props.display}; 
+  display: ${(props) => props.display};
   width: ${(props) => props.width};
   padding: ${(props) => props.padding};
+  border: ${(props) => props.border};
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")} 
-  border: ${(props) => props.border};
   ${(props) =>
-    props.borderRadius
-      ? `border-radius: ${props.borderRadius};`
-      : ""} 
+    props.borderRadius ? `border-radius: ${props.borderRadius};` : ""} 
   /* box-shadow: 0 1px 1px 1px rgba(255, 105, 135, 0.3); */
-  color: #000000;
+  color: #ffffff;
   height: ${(props) => props.height};
   transition: ease all 0.1s;
 

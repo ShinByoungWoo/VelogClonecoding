@@ -12,6 +12,7 @@ const Text = (props) => {
     line_height,
     height,
     overflow,
+    cursor,
   } = props;
 
   const styles = {
@@ -23,6 +24,7 @@ const Text = (props) => {
     line_height: line_height,
     height: height,
     overflow: overflow,
+    cursor: cursor,
   };
 
   return <P {...styles}>{children}</P>;
@@ -36,9 +38,11 @@ Text.defaultProps = {
   center: false,
   margin: false,
   flex: false,
+  cursor: null,
 };
 
 const P = styled.p`
+  cursor: ${(props) => props.cursor};
   ${(props) => (props.center ? `text-align: center;` : "")}
   color: ${(props) => props.color};
   margin: ${(props) => props.margin};

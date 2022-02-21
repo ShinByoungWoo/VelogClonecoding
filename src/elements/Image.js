@@ -1,67 +1,43 @@
-import { goForward } from "connected-react-router";
-import React from "react";
 import styled from "styled-components";
+import React from "react";
 
 const Image = (props) => {
-  const { src, size, border_radius, margin, shape } = props;
+  const { src, size, aligntem, border_radius } = props;
+
   const styles = {
     src: src,
     size: size,
-    borderRadius: border_radius,
-    margin: margin,
+    aligntem,
+    border_radius: border_radius,
   };
-
-  if (shape === "rectangle") {
-    return (
-      <AspectOutter {...styles}>
-        <AspectInner {...styles}></AspectInner>
-      </AspectOutter>
-    );
-  }
   return (
     <React.Fragment>
-      <Images {...styles} />
+      <ImageDefault {...styles}></ImageDefault>
     </React.Fragment>
   );
 };
+
 Image.defaultProps = {
-  shape: "rectangle",
-  src: "",
-  size: 36,
+  src: "https://10wallpaper.com/wallpaper/1366x768/1407/disney_castle-High_quality_wallpaper_1366x768.jpg",
+  size: "",
   border_radius: false,
-  margin: false,
 };
 
-//게시판 작성 이미지입니다!
-const AspectOutter = styled.div`
-  ${(props) => (props.width ? `width: ${props.width};` : "")}
-  max-height: 100%;
-    display: flex;
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-  ${(props) => (props.marginLeft ? `margin-left: ${props.marginLeft};` : "")}
-    @media only screen and (max-width: 500px) {
-    min-width: 70%;
+const ImageDefault = styled.img`
+  max-height: 100vh;
+  max-width: 100%;
+  min-width: 50%;
+  width: auto;
+  margin: 2rem auto 0px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  ${(props) =>
+    props.border_radius ? `border-radius: ${props.border_radius};` : ""}
+  ${
+    "" /* @media (max-width: 800px) {
+    margin-top: 1.5rem;
+  } */
   }
 `;
-
-const AspectInner = styled.div`
-  padding-top: 75%;
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-  display: block;
-  border-radius: ${(props) => props.borderRadius};
-`;
-
-const Images = styled.div`
-  --size: ${(props) => props.size}vh;
-  width: 100%;
-  height: var(--size);
-  ${(props) =>
-    props.borderRadius ? `border-radius:${props.borderRadius}` : ""};
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-  margin: ${(props) => props.margin};
-  border-radius: ${(props) => props.borderRadius};
-`;
-
 export default Image;

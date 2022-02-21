@@ -33,7 +33,7 @@ const Input = (props) => {
 
   return (
     <React.Fragment>
-      <Grid>
+      <Grid height="auto">
         {label && <Text margin="0px">{label}</Text>}
         <ElInput
           type={type}

@@ -1,18 +1,29 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Text, Image, Button } from "../elements/Index";
 import styled from "styled-components";
 import { FaHeart } from "react-icons/fa";
 
-const Post = () => {
+const Post = (props) => {
+  const dispatch = useDispatch();
+
+  const title = props.title;
+  const nickname = props.nickname;
+  const content = props.content;
+  const comment = props.comment; //.length
+  const createDate = props.createdAt;
+  const img_url = props.img;
+
   return (
     <React.Fragment>
-      <Grid is_flex flex_wrap margin="auto" is_center padding="0px 5rem">
+      <Grid width="auto">
         <Cards>
-          <Link to="/login">
+          <Link to="/Detail">
             <Image
-              src="https://media.vlpt.us/images/heyiminhye/post/986bbad3-1ca5-4628-8a2e-1498bd0acbb2/hr-process-gd20a0046a_1280.png"
+              size="cover"
               border_radius="10px"
+              src="http://media.vlpt.us/images/heyiminhye/post/986bbad3-1ca5-4628-8a2e-1498bd0acbb2/hr-process-gd20a0046a_1280.png"
             />
           </Link>
           <Grid padding="16px 16px 5px 16px">
@@ -53,7 +64,7 @@ const Cards = styled.div`
   :hover {
     transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
   }
-  margin: 2rem;
+  margin: 1.1rem;
 `;
 
 export default Post;

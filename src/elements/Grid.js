@@ -20,6 +20,7 @@ const Grid = (props) => {
     border_radius,
     box_shadow,
     flex,
+    min_width,
   } = props;
 
   const styles = {
@@ -38,6 +39,7 @@ const Grid = (props) => {
     box_shadow: box_shadow,
     flex: flex,
     flex_wrap: flex_wrap,
+    min_width: min_width,
   };
   return (
     <React.Fragment>
@@ -55,6 +57,7 @@ Grid.defaultProps = {
   is_center: false,
   is_colum: false,
   width: "100%",
+  min_width: false,
   height: "100%",
   padding: false,
   margin: false,
@@ -71,6 +74,7 @@ Grid.defaultProps = {
 const GridBox = styled.div`
   ${(props) => (props.flex_wrap ? `flex-wrap : wrap;` : "")}
   ${(props) => (props.flex ? `display: flex; ` : "")}
+  min-width: ${(props) => props.min_width};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   box-sizing: border-box;
