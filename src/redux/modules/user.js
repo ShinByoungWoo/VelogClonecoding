@@ -68,8 +68,12 @@ const idDuplcheckDB = (signupid) => {
         user_id: signupid,
       })
       .then((res) => {
-        console.log(res);
-        window.alert(res.data.msg);
+        if (res.status === 400) {
+          console.log(res.status);
+          window.alert(res.data.msg);
+        } else {
+          window.alert(res.data.msg);
+        }
       })
       .catch((error) => {
         console.log(error);

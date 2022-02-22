@@ -3,6 +3,7 @@ import "../shared/modal.css";
 import { Input, Text, Grid, Button } from "../elements/Index";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { emailCheck, nicknamecheck, pwdcheck } from "../shared/common";
 import { actionCreators as userActions } from "../redux/modules/user";
 //style
 import styled from "styled-components";
@@ -52,6 +53,11 @@ const ModalLogin = (props) => {
   };
 
   const idCheck = () => {
+    if (!emailCheck(signupid)) {
+      window.alert("이메일 형식이 맞지 않습니다!");
+      return;
+    }
+
     dispatch(userActions.idDuplcheckDB(signupid));
   };
 
@@ -79,11 +85,6 @@ const ModalLogin = (props) => {
       window.alert("닉네임을 입력하여 주세요");
       return;
     }
-
-    // if (!emailCheck(userName)) {
-    //   window.alert("이메일 형식이 맞지 않습니다!");
-    //   return;
-    // }
 
     // if (userName === "") {
     //   window.alert("잘못된 이메일 형식입니다.");
