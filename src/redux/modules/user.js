@@ -24,7 +24,7 @@ const initialState = {
 };
 
 const loginDB = (loginid, loginpwd) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch, _getState, { history }) {
     console.log(loginid, loginpwd);
     instance
       .post("/login", { email: loginid, password: loginpwd })
@@ -40,7 +40,7 @@ const loginDB = (loginid, loginpwd) => {
 
 //회원가입 API
 const signUpDB = (singupid, nickname, signupPwd) => {
-  return function (dispatch, getState, { history }) {
+  return function (_dispatch, _getState, { history }) {
     instance
       .post("/join", {
         email: singupid,
@@ -61,22 +61,33 @@ const signUpDB = (singupid, nickname, signupPwd) => {
 
 //아이디 중복 제크 API
 const idDuplcheckDB = (signupid) => {
-  return function (dispatch, getState, { history }) {
+  return function (_dispatch, _getState, { history }) {
     console.log(signupid);
     instance
       .post("/join/checkid", {
         user_id: signupid,
       })
       .then((res) => {
-        console.log(res);
-        window.alert(res.data.alert);
+        if (res.status === 400) {
+          window.alert(res.error);
+        } else {
+          console.log(res);
+          window.alert(res.data.msg);
+        }
+      })
+      .catch((error) => {
+        // let response;
+        // console.log(error);
+        // console.log(response.errorMessage);
+        console.log(error.res);
+        // window.alert(error.response.errorMessage);
       });
   };
 };
 
 // 로그아웃
 const logoutDB = () => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch, _getState, { history }) {
     localStorage.removeItem("is_login");
     localStorage.removeItem("user_nick");
     dispatch(logOut());
@@ -106,12 +117,12 @@ export default handleActions(
         draft.user = action.payload.user;
         draft.is_login = true;
       }),
-    [LOG_OUT]: (state, action) =>
+    [LOG_OUT]: (state, _action) =>
       produce(state, (draft) => {
         draft.user = null;
         draft.is_login = false;
       }),
-    [GET_USER]: (state, action) => produce(state, (draft) => {}),
+    [GET_USER]: (state, _action) => produce(state, (_draft) => {}),
   },
   initialState
 );
