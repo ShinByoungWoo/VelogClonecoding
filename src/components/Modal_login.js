@@ -1,7 +1,7 @@
 import React from "react";
 import "../shared/modal.css";
 import { Input, Text, Grid, Button } from "../elements/Index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { actionCreators as userActions } from "../redux/modules/user";
 //style
@@ -16,17 +16,17 @@ const ModalLogin = (props) => {
   //열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴.
   const { open, close } = props;
 
-  // const is_login = useSelector((state) => state.user.is_login);
-  // const is_local = localStorage.getItem("is_login") ? true : false;
-  // const user_nick = localStorage.getItem("user_nick");
+  const is_login = useSelector((state) => state.user.is_login);
+  const is_local = localStorage.getItem("is_login") ? true : false;
+  const user_nick = localStorage.getItem("user_nick");
 
-  const [id, setId] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [loginid, setLoginId] = useState("");
+  const [loginpwd, setLoginPwd] = useState("");
+  const [signupid, setSignupId] = useState("");
+  const [signupPwd, setSignupPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = React.useState("");
   const [nickname, setNickname] = React.useState("");
   const [state, setState] = React.useState(true);
-
-  console.log(state); //true
 
   const changeState = () => {
     setState(false);
@@ -43,15 +43,43 @@ const ModalLogin = (props) => {
   }, [state]);
 
   const login = () => {
-    if (id === "" || pwd === "") {
+    if (loginid === "" || loginpwd === "") {
       window.alert("이메일 혹은 비밀번호를 입력하지 않으셨습니다.");
       return;
     }
 
-    dispatch(userActions.loginDB(id, pwd));
+    dispatch(userActions.loginDB(loginid, loginpwd));
+  };
+
+  const idCheck = () => {
+    dispatch(userActions.idDuplcheckDB(signupid));
   };
 
   const signup = () => {
+    if (signupid === "") {
+      window.alert("이메일을 입력하여 주세요");
+      return;
+    }
+
+    if (signupPwd === "") {
+      window.alert("비밀번호를 입력하여주세요");
+      return;
+    }
+
+    if (confirmPwd === "") {
+      window.alert("비밀번호를 다시 입력하여 주세요");
+      return;
+    }
+
+    if (signupPwd !== confirmPwd) {
+      window.alert("비밀번호가 일치하지 않습니다.");
+    }
+
+    if (nickname === "") {
+      window.alert("닉네임을 입력하여 주세요");
+      return;
+    }
+
     // if (!emailCheck(userName)) {
     //   window.alert("이메일 형식이 맞지 않습니다!");
     //   return;
@@ -61,7 +89,7 @@ const ModalLogin = (props) => {
     //   window.alert("잘못된 이메일 형식입니다.");
     //   return;
     // }
-    dispatch(userActions.signUpDB(id, nickname, pwd, confirmPwd));
+    dispatch(userActions.signUpDB(signupid, nickname, signupPwd));
   };
 
   return (
@@ -109,7 +137,7 @@ const ModalLogin = (props) => {
 
                   <Input
                     placeholder="이메일을 입력해주세요"
-                    _onChange={(e) => setId(e.target.value)}
+                    _onChange={(e) => setLoginId(e.target.value)}
                   />
 
                   <Text size="16px" margin="0px 0px 16xp 0px">
@@ -119,7 +147,7 @@ const ModalLogin = (props) => {
                   <Input
                     placeholder="비밀번호를 입력해주세요"
                     type="password"
-                    _onChange={(e) => setPwd(e.target.value)}
+                    _onChange={(e) => setLoginPwd(e.target.value)}
                   />
 
                   <Button
@@ -206,7 +234,7 @@ const ModalLogin = (props) => {
                   <Grid width="auto" height="auto" is_flex>
                     <Input
                       placeholder="사용할 이메일을 입력해주세요"
-                      _onChange={(e) => setId(e.target.value)}
+                      _onChange={(e) => setSignupId(e.target.value)}
                     />
                     <Button
                       padding="5px"
@@ -216,7 +244,7 @@ const ModalLogin = (props) => {
                       margin="0px 5px"
                       display="block"
                       borderRadius="5px"
-                      // _onClick={login}
+                      _onClick={idCheck}
                     >
                       중복체크
                     </Button>
@@ -229,7 +257,7 @@ const ModalLogin = (props) => {
                   <Input
                     placeholder="사용할 비밀번호를 입력해주세요"
                     type="password"
-                    _onChange={(e) => setPwd(e.target.value)}
+                    _onChange={(e) => setSignupPwd(e.target.value)}
                   />
 
                   <Text size="16px" margin="0px 0px 16xp 0px">

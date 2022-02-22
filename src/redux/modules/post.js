@@ -72,9 +72,6 @@ const getPostDB = () => {
             post_id: v._id,
             image_url: v.image_url,
             comment: v.comment,
-            location: v.location,
-            score: v.score,
-            like_count: v.like_count,
           };
           post_list.push(list);
         });
@@ -126,7 +123,7 @@ const editPostFB = (post_id = null, post = {}) => {
 const getOnePostFB = (post_id) => {
   return function (dispatch, getState, { history }) {
     instance
-      .get(`/api/getpost/${post_id}`, {})
+      .get(`/api/post/${post_id}`, {})
       .then(function (response) {
         const post = response.data.response;
         dispatch(getOnePost(post));

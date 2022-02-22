@@ -23,31 +23,35 @@ const initialState = {
   is_login: false,
 };
 
-const loginDB = (id, pwd) => {
+const loginDB = (loginid, loginpwd) => {
   return function (dispatch, getState, { history }) {
-    instance.post("/api/login", { user_id: id, user_pwd: pwd }).then((res) => {
-      alert(res.data.success);
-      const accessToken = res.data.token; // 콘솔찍어보기
-      localStorage.setItem("user_nick", res.data.user_nick);
-      localStorage.setItem("is_login", res.data.token);
-      dispatch(setUser());
-    });
+    console.log(loginid, loginpwd);
+    instance
+      .post("/login", { email: loginid, password: loginpwd })
+      .then((res) => {
+        alert(res.data.msg);
+        // const accessToken = res.data.token; // 콘솔찍어보기
+        localStorage.setItem("user_nick", res.data.user_nick);
+        localStorage.setItem("is_login", res.data.token);
+        dispatch(setUser());
+      });
   };
 };
 
 //회원가입 API
-const joinUpDB = (id, nickname, pwd) => {
+const signUpDB = (singupid, nickname, signupPwd) => {
   return function (dispatch, getState, { history }) {
     instance
-      .post("api/join", {
-        user_id: id,
-        user_nick: nickname,
-        user_pwd: pwd,
+      .post("/join", {
+        email: singupid,
+        password: signupPwd,
+        nickname: nickname,
       })
       .then((res) => {
-        window.alert(res.data.success);
+        console.log(res);
+        window.alert(res.data.msg);
         // dispatch(setUser()) // 확인
-        // history.push("/");
+        history.push("/");
       })
       .catch((error) => {
         console.log(error);
@@ -56,12 +60,12 @@ const joinUpDB = (id, nickname, pwd) => {
 };
 
 //아이디 중복 제크 API
-const idDuplcheckDB = (id) => {
+const idDuplcheckDB = (signupid) => {
   return function (dispatch, getState, { history }) {
-    console.log(id);
+    console.log(signupid);
     instance
-      .post("/api/join/checkid", {
-        user_id: id,
+      .post("/join/checkid", {
+        user_id: signupid,
       })
       .then((res) => {
         console.log(res);
@@ -81,18 +85,17 @@ const logoutDB = () => {
   };
 };
 
-
 // 로그인 체크
-const loginCheckDB = () => {
-  return function (dispatch, getState, { history }) {
-    const token = localStorage.getItem("token");
-    const user_nick = localStorage.getItem("user_nick");
+// const loginCheckDB = () => {
+//   return function (dispatch, getState, { history }) {
+//     const token = localStorage.getItem("token");
+//     const user_nick = localStorage.getItem("user_nick");
 
-    if (token) {
-      dispatch(setUser({ user_nick: user_nick, token: token }));
-    }
-  };
-};
+//     if (token) {
+//       dispatch(setUser({ user_nick: user_nick, token: token }));
+//     }
+//   };
+// };
 
 //reducer
 //produce (immer) 이용하여 불변성 유지
@@ -119,10 +122,10 @@ const actionCreators = {
   setUser,
   getUser,
   loginDB,
-  joinUpDB,
+  signUpDB,
   logoutDB,
   idDuplcheckDB,
-  loginCheckDB,
+  // loginCheckDB,
 };
 
 export { actionCreators };

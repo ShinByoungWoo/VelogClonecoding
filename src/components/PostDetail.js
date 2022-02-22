@@ -3,7 +3,7 @@ import { Grid, Image, Text } from "../elements/Index";
 import CommentWrite from "../components/CommentWrite";
 import CommentList from "../components/CommentList";
 
-const PostD = () => {
+const PostD = (props) => {
   return (
     <React.Fragment>
       <Grid margin="5.5rem auto 0px auto" center width="40rem">
