@@ -6,6 +6,10 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import styled from "styled-components";
 import { Grid } from "../elements/Index";
 
+//toast
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
+
 const Write = (props) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
@@ -20,6 +24,7 @@ const Write = (props) => {
 
     dispatch(userActions.addPostDB(title, tag, content));
   };
+  const editorRef = React.useRef();
 
   return (
     <React.Fragment>
@@ -36,14 +41,22 @@ const Write = (props) => {
             onChange={(e) => setTag(e.target.value)}
           />
 
-          <div>텍스트 에디터 구역</div>
+          <Editor //에디터
+            placeholder="당신의 이야기를 적어보세요..."
+            previewStyle="vertical"
+            height="80vh"
+            width="100vw"
+            initialEditType="markdown"
+            initialValue=""
+            ref={editorRef}
+          />
 
-          <MarkDownArea>
+          {/* <MarkDownArea>
             <ContentArea
               placeholder="당신의 이야기를 적어보세요..."
               onChange={(e) => setContent(e.target.value)}
             />
-          </MarkDownArea>
+          </MarkDownArea> */}
           <FooterArea>
             <div>
               <CancleBtn>나가기</CancleBtn>
@@ -57,7 +70,7 @@ const Write = (props) => {
         </LeftArea>
 
         {/* 오른쪽 */}
-        <RightArea></RightArea>
+        {/* <RightArea></RightArea> */}
       </Grid>
     </React.Fragment>
   );
