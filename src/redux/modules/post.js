@@ -23,10 +23,12 @@ const initialState = {
 };
 
 // middleware
-const addPostDB = (title, content, image_url) => {
+
+//추가하기
+const addPostDB = (title, content, image_url = "") => {
   return function (dispatch, getState, { history }) {
     const is_local = localStorage.getItem("is_login");
-
+    // console.log(is_local);
     const _post = {
       title: title,
       content: content,
@@ -36,15 +38,16 @@ const addPostDB = (title, content, image_url) => {
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
     instance
       .post(
-        "/api/post", // 미리 약속한 주소
+        "/post", // 미리 약속한 주소
         {
           title: title,
           content: content,
           image_url: image_url,
         }, // 서버가 필요로 하는 데이터를 넘겨주고,
-        (instance.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${is_local}`)
+        // (instance.defaults.headers.common[
+        //   "Authorization"
+        // ] = `Bearer ${is_local}`)
+        { headers: { authorization: `Bearer ${is_local}` } }
       )
       .then((res) => {
         window.alert(res.data.success);
@@ -57,21 +60,25 @@ const addPostDB = (title, content, image_url) => {
   };
 };
 
+//불러오기
 const getPostDB = () => {
   return function (dispatch, getState, { history }) {
     instance
-      .get("/api/post", {})
+      .get("/post", {})
       .then(function (response) {
         const postDB = response.data.response;
+        console.log(postDB);
+        console.log(response.data)
         const post_list = [];
         postDB.forEach((v, i) => {
           let list = {
+            img: v.img,
             title: v.title,
-            user_nick: v.user_nick,
-            createDate: v.createdDate,
-            post_id: v._id,
-            image_url: v.image_url,
-            comment: v.comment,
+            content: v.content,
+            createdAt: v.createdAt,
+            comments: v.comments,
+            nickname: v.nickname,
+            // post_id: v._id,
           };
           post_list.push(list);
         });
@@ -83,6 +90,7 @@ const getPostDB = () => {
   };
 };
 
+//삭제하기
 const deletePostFB = (post_id = null) => {
   return function (dispatch, getState, { history }) {
     const _post_idx = getState().post.list.findIndex(
@@ -101,6 +109,7 @@ const deletePostFB = (post_id = null) => {
   };
 };
 
+//수정하기
 const editPostFB = (post_id = null, post = {}) => {
   return function (dispatch, getState, { history }) {
     window.alert("수정되었습니다");

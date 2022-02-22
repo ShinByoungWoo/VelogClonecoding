@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
+// import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as postActions } from "../redux/modules/post";
+import instance from "../shared/Api";
 
 //style
 import styled from "styled-components";
@@ -13,18 +15,79 @@ import { Editor } from "@toast-ui/react-editor";
 const Write = (props) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  const [tag, setTag] = useState("");
-  const [content, setContent] = useState("");
+  // const [tag, setTag] = useState("");
+  // const [content, setContent] = useState("");
 
-  const publish = () => {
-    if (title === "" || tag === "" || content === "") {
-      window.alert("내용을 모두 입력하여 주세요");
+  // const publish = () => {
+  //   if (title === "" || content === "") {
+  //     window.alert("내용을 모두 입력하여 주세요");
+  //     console.log(editorRef.current.getInstance().getData());
+  //     return;
+  //   }
+
+  //   dispatch(userActions.addPostDB(title, content));
+  // };
+
+  //에디터 부분
+  const editorRef = React.useRef();
+
+  // 콘텐츠 값 가져와짐!
+  // const contents = editorRef.current.getInstance().preview.el.innerText;
+  // console.log(contents)
+
+  // console.log(title);
+
+  // const context = editorRef.current.getInstance().getHTML();
+  // console.log(context);
+
+  //텍스트 에디터 image url 줄이는 방법
+  React.useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().removeHook("addImageBlobHook");
+      editorRef.current
+        .getInstance()
+        .addHook("addImageBlobHook", (image, callback) => {
+          (async () => {
+            let is_local = localStorage.getItem("is_login");
+            let formData = new FormData();
+            let baseUrl = "http://3.34.178.85/";
+            formData.append("image", image);
+            console.log(image);
+
+            // instance.defaults.withCredentials = true; //국ㄹ
+            const { data: url } = await instance.post(
+              `${baseUrl}/post`,
+              formData,
+              {
+                header: {
+                  "content-type": "multipart/formdata",
+                  authorization: `Bearer ${is_local}`,
+                },
+              }
+            );
+            console.log(url)
+            callback(url, "image");
+          })();
+
+          return false;
+        });
+    }
+
+    return () => {};
+  }, [editorRef]);
+
+  // //추가하기
+  const postAdd = () => {
+    const contents = editorRef.current.getInstance().getMarkdown();
+    console.log(contents);
+    if (title === "" || contents === "") {
+      window.alert("제목과 내용을 모두 입력하여 주세요");
+      console.log(editorRef.current.getInstance().preview.el.innerText);
       return;
     }
 
-    dispatch(userActions.addPostDB(title, tag, content));
+    dispatch(postActions.addPostDB(title, contents));
   };
-  const editorRef = React.useRef();
 
   return (
     <React.Fragment>
@@ -38,25 +101,19 @@ const Write = (props) => {
           <TitleLine />
           <TagArea
             placeholder="태그를 입력하세요"
-            onChange={(e) => setTag(e.target.value)}
+            // onChange={(e) => setTag(e.target.value)}
           />
 
           <Editor //에디터
             placeholder="당신의 이야기를 적어보세요..."
             previewStyle="vertical"
-            height="80vh"
+            height="100vh"
             width="100vw"
             initialEditType="markdown"
             initialValue=""
             ref={editorRef}
           />
 
-          {/* <MarkDownArea>
-            <ContentArea
-              placeholder="당신의 이야기를 적어보세요..."
-              onChange={(e) => setContent(e.target.value)}
-            />
-          </MarkDownArea> */}
           <FooterArea>
             <div>
               <CancleBtn>나가기</CancleBtn>
@@ -64,7 +121,7 @@ const Write = (props) => {
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <SaveBtn>임시저장</SaveBtn>
-              <AddBtn onClick={publish}>출간하기</AddBtn>
+              <AddBtn onClick={postAdd}>출간하기</AddBtn>
             </div>
           </FooterArea>
         </LeftArea>
@@ -156,6 +213,7 @@ const FooterArea = styled.div`
   padding: 10px;
   margin: 0px;
   display: flex;
+  background-color: white;
   justify-content: space-between;
   box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.3);
 `;

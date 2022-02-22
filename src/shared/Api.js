@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, setCookie, deleteCookie } from "./cookie";
+// import { getCookie, setCookie, deleteCookie } from "./cookie";
 
 const token = localStorage.getItem("token");
 
@@ -9,7 +9,7 @@ const instance = axios.create({
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
-    Authorization: `Bearer ${token}`,
+    authorization: `Bearer ${token}`,
   },
 });
 
