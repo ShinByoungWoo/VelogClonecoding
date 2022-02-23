@@ -27,10 +27,10 @@ const Post = (props) => {
 
   return (
     <React.Fragment>
-      <Grid width="auto">
+      <Grid width="auto" height="500px">
         <Cards>
           <Link to="/Detail">
-            <Image size="cover" border_radius="10px" src={img_url} />
+            <Image size="" border_radius="10px" src={img_url} />
           </Link>
           <Grid padding="16px 16px 5px 16px">
             <Text size="0.975rem" bold>
@@ -62,7 +62,7 @@ const Post = (props) => {
 const Cards = styled.div`
   width: 20rem;
   min-width: 20rem;
-  height: auto;
+  height: 500px;
   ${"" /* border: 1px solid black; */}
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 50%) 0px 4px 16px 0px;

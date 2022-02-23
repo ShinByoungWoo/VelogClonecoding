@@ -39,7 +39,7 @@ const Main = () => {
 };
 
 const Wrap = styled.div`
-  dispaly: flex;
+  display: flex;
 `;
 
 export default Main;
