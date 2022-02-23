@@ -15,7 +15,7 @@ import CommentList from "../components/CommentList";
 
 const Detail = (props) => {
   // const dispatch = useDispatch();
-  const post_id = props.match.params.postid;
+  // const post_id = props.match.params.postid;
   const user_info = useSelector((state) => state.user.user);
   // React.useEffect(() => {
   //   dispatch(postActions.getOnePostFB(post_id));

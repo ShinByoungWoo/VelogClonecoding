@@ -5,12 +5,12 @@ const token = localStorage.getItem("token");
 
 const instance = axios.create({
   // baseURL: "https://6be3b6c9-875e-4de2-ad00-299e2a32a238.mock.pstmn.io" // 요청을 www.aa.com/user로 보낸다면, www.aa.com까지 기록
-  baseURL: "http://3.34.178.85/",
-  headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json,",
-    authorization: `Bearer ${token}`,
-  },
+  baseURL: "http://3.34.178.85",
+  // headers: {
+  //   "content-type": "application/json;charset=UTF-8",
+  //   accept: "application/json,",
+  //   authorization: `Bearer ${token}`,
+  // },
 });
 
 // 가지고 있는 토큰 넣어주기!

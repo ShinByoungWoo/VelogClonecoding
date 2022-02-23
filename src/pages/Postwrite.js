@@ -1,119 +1,142 @@
 import React, { useState } from "react";
+// import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 // import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 import instance from "../shared/Api";
+import axios from "axios";
 
 //style
 import styled from "styled-components";
-import { Grid } from "../elements/Index";
+import { Grid, Image } from "../elements/Index";
 
 //toast
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 
 const Write = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
+
+  //각 폼안의 상태
   const [title, setTitle] = useState("");
-  // const [tag, setTag] = useState("");
-  // const [content, setContent] = useState("");
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState("");
 
-  // const publish = () => {
-  //   if (title === "" || content === "") {
-  //     window.alert("내용을 모두 입력하여 주세요");
-  //     console.log(editorRef.current.getInstance().getData());
-  //     return;
-  //   }
-
-  //   dispatch(userActions.addPostDB(title, content));
-  // };
-
-  //에디터 부분
-  const editorRef = React.useRef();
-
-  // 콘텐츠 값 가져와짐!
-  // const contents = editorRef.current.getInstance().preview.el.innerText;
-  // console.log(contents)
-
-  // console.log(title);
-
-  // const context = editorRef.current.getInstance().getHTML();
-  // console.log(context);
-
-  //텍스트 에디터 image url 줄이는 방법
-  React.useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.getInstance().removeHook("addImageBlobHook");
-      editorRef.current
-        .getInstance()
-        .addHook("addImageBlobHook", (image, callback) => {
-          (async () => {
-            let is_local = localStorage.getItem("is_login");
-            let formData = new FormData();
-            let baseUrl = "http://3.34.178.85";
-            formData.append("image", image);
-            console.log(image);
-
-            // instance.defaults.withCredentials = true; //국ㄹ
-            const { data: url } = await instance.post(
-              `${baseUrl}/post`,
-              formData,
-              {
-                header: {
-                  "content-type": "multipart/formdata",
-                  Authorization: `Bearer ${is_local}`,
-                },
-              }
-            );
-            console.log(url);
-            callback(url, "image");
-          })();
-
-          return false;
-        });
-    }
-
-    return () => {};
-  }, [editorRef]);
-
-  // //추가하기
-  const postAdd = () => {
-    const contents = editorRef.current.getInstance().getMarkdown();
-    console.log(title, contents);
-    if (title === "" || contents === "") {
-      window.alert("제목과 내용을 모두 입력하여 주세요");
-      console.log(editorRef.current.getInstance().preview.el.innerText);
-      return;
-    }
-
-    dispatch(postActions.addPostDB(title, contents));
+  const changeTitle = (e) => {
+    setTitle(e.target.value);
   };
+
+  const changeContent = (e) => {
+    setContent(e.target.value);
+  };
+
+  const changeImage = (e) => {
+    setImage(e.target.value);
+  };
+
+  //프리뷰 조지기
+  const preview = useSelector((state) => state.post.preview);
+  console.log(preview);
+
+  //값 추가하기
+  const addPost = () => {
+    dispatch(postActions.addPostDB(title, content, preview));
+  };
+
+  //포스트 ID값 가져오기 (id값 url 미설정)
+  const post_id = props.match.params.post_id;
+  console.log(post_id);
+
+  //포스트DB에 저장된 리스트 가져오기
+  const post_list = useSelector((state) => state.post.post_list);
+  console.log(post_list);
+
+  //아이디 값이 있을 때 수정모드
+  const is_edit = post_id ? true : false;
+  console.log(is_edit);
+
+  //값 수정하기 미완2022.2.23 02:51
+  React.useEffect(() => {
+    dispatch(postActions.getOnePost(post_id));
+
+    if (is_edit) {
+      setTitle(post_list.title);
+    }
+  }, []);
+
+  //Ref
+  const fileInput = React.useRef();
+
+  //폼데이터 및 파일리더
+  const selectFile = async (e) => {
+    // console.log(e.target.files);
+    // console.log(e.target.files[0]);
+    // console.log(fileInput.current.files[0]);
+
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    console.log(file)
+    const formData = new FormData();
+    formData.append("files", file);
+    console.log(formData)
+    
+    await axios({
+      method: "post",
+      url: "/post",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    reader.readAsDataURL(file);
+
+    // 읽기가 끝나면 발생하는 이벤트 핸들러예요! :)
+    reader.onloadend = () => {
+      // reader.result는 파일의 컨텐츠(내용물)입니다!
+      dispatch(postActions.setPreview(reader.result));
+      console.log(reader.result);
+    };
+  };
+
 
   return (
     <React.Fragment>
-      <Grid flex>
+      <Grid>
         <LeftArea>
           <TitleAreas
             border="none"
             placeholder="제목을 입력하세요"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={changeTitle}
           />
           <TitleLine />
-          <TagArea
-            placeholder="태그를 입력하세요"
-            // onChange={(e) => setTag(e.target.value)}
-          />
 
-          <Editor //에디터
-            placeholder="당신의 이야기를 적어보세요..."
-            previewStyle="vertical"
-            height="100vh"
-            width="100vw"
-            initialEditType="markdown"
-            initialValue=""
-            ref={editorRef}
-          />
+          <form action="/post" method="POST" enctype="multipart/form-data" id="form">
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              onChange={selectFile}
+              ref={fileInput}
+            />
+            <Image
+              margin="10px 0px 0px 0px"
+              shape="rectangle"
+              width="50%"
+              src={preview ? preview : ""}
+            >
+              사진추가하기
+            </Image>
+          </form>
 
+          <MarkDownArea>
+            <ContentArea
+              placeholder="당신의 이야기를 적어보세요..."
+              onChange={changeContent}
+            />
+          </MarkDownArea>
           <FooterArea>
             <div>
               <CancleBtn>나가기</CancleBtn>
@@ -121,13 +144,13 @@ const Write = (props) => {
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <SaveBtn>임시저장</SaveBtn>
-              <AddBtn onClick={postAdd}>출간하기</AddBtn>
+              <AddBtn onClick={addPost}>출간하기</AddBtn>
             </div>
           </FooterArea>
         </LeftArea>
 
         {/* 오른쪽 */}
-        {/* <RightArea></RightArea> */}
+        <RightArea></RightArea>
       </Grid>
     </React.Fragment>
   );
@@ -205,10 +228,10 @@ const ContentArea = styled.textarea`
 
 const FooterArea = styled.div`
   /* z-index: 10; */
-  ${"" /* position: fixed; */}
+  position: fixed;
   left: 0px;
   bottom: 0;
-  width: 46vw;
+  width: 100vw;
   height: 50px;
   padding: 10px;
   margin: 0px;

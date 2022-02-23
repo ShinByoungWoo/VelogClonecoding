@@ -77,7 +77,11 @@ const idDuplcheckDB = (signupid) => {
       })
       .catch((error) => {
         console.log(error);
+        // let response;
+        // console.log(error);
+        // console.log(response.errorMessage);
         console.log(error.res);
+        // window.alert(error.response.errorMessage);
       });
   };
 };
@@ -92,6 +96,18 @@ const logoutDB = () => {
     //replace는 push와 달리 뒤로가기해도 원래 페이지가 나오지 않음.
   };
 };
+
+// 로그인 체크
+// const loginCheckDB = () => {
+//   return function (dispatch, getState, { history }) {
+//     const token = localStorage.getItem("token");
+//     const user_nick = localStorage.getItem("user_nick");
+
+//     if (token) {
+//       dispatch(setUser({ user_nick: user_nick, token: token }));
+//     }
+//   };
+// };
 
 //reducer
 //produce (immer) 이용하여 불변성 유지
