@@ -50,7 +50,7 @@ const Write = (props) => {
           (async () => {
             let is_local = localStorage.getItem("is_login");
             let formData = new FormData();
-            let baseUrl = "http://3.34.178.85/";
+            let baseUrl = "http://3.34.178.85";
             formData.append("image", image);
             console.log(image);
 
@@ -61,11 +61,11 @@ const Write = (props) => {
               {
                 header: {
                   "content-type": "multipart/formdata",
-                  authorization: `Bearer ${is_local}`,
+                  Authorization: `Bearer ${is_local}`,
                 },
               }
             );
-            console.log(url)
+            console.log(url);
             callback(url, "image");
           })();
 
@@ -79,7 +79,7 @@ const Write = (props) => {
   // //추가하기
   const postAdd = () => {
     const contents = editorRef.current.getInstance().getMarkdown();
-    console.log(contents);
+    console.log(title, contents);
     if (title === "" || contents === "") {
       window.alert("제목과 내용을 모두 입력하여 주세요");
       console.log(editorRef.current.getInstance().preview.el.innerText);
@@ -205,10 +205,10 @@ const ContentArea = styled.textarea`
 
 const FooterArea = styled.div`
   /* z-index: 10; */
-  position: fixed;
+  ${"" /* position: fixed; */}
   left: 0px;
   bottom: 0;
-  width: 48vw;
+  width: 46vw;
   height: 50px;
   padding: 10px;
   margin: 0px;

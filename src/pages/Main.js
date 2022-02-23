@@ -11,13 +11,17 @@ import styled from "styled-components";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const post_list = useSelector((state) => state.post.list);
-
-  // const user_nick = localStorage.getItem("user_nick");
 
   React.useEffect(() => {
     dispatch(postActions.getPostDB());
   }, []);
+
+  console.log("여기는 언제 실행되는 것인가!");
+
+  const post_list = useSelector((state) => state.post.list);
+  console.log(post_list);
+
+  // const user_nick = localStorage.getItem("user_nick");
 
   return (
     <React.Fragment>

@@ -25,14 +25,14 @@ const initialState = {
 // middleware
 
 //추가하기
-const addPostDB = (title, content, image_url = "") => {
+const addPostDB = (title, content, img_url) => {
   return function (dispatch, getState, { history }) {
     const is_local = localStorage.getItem("is_login");
     // console.log(is_local);
     const _post = {
       title: title,
       content: content,
-      image_url: image_url,
+      img_url: img_url,
     };
     let post = { ..._post };
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
@@ -42,7 +42,7 @@ const addPostDB = (title, content, image_url = "") => {
         {
           title: title,
           content: content,
-          image_url: image_url,
+          img_url: img_url,
         }, // 서버가 필요로 하는 데이터를 넘겨주고,
         // (instance.defaults.headers.common[
         //   "Authorization"
@@ -63,25 +63,26 @@ const addPostDB = (title, content, image_url = "") => {
 //불러오기
 const getPostDB = () => {
   return function (dispatch, getState, { history }) {
+    const is_local = localStorage.getItem("is_login");
     instance
-      .get("/post", {})
+      .get("/post", {}, { headers: { authorization: `Bearer ${is_local}` } })
       .then(function (response) {
-        const postDB = response.data.response;
+        const postDB = response.data.posts;
         console.log(postDB);
-        console.log(response.data)
-        const post_list = [];
-        postDB.forEach((v, i) => {
+        console.log(postDB[0].post.title);
+        let post_list = [];
+        for (let i = 0; i < postDB.length; i++) {
           let list = {
-            img: v.img,
-            title: v.title,
-            content: v.content,
-            createdAt: v.createdAt,
-            comments: v.comments,
-            nickname: v.nickname,
-            // post_id: v._id,
+            title: postDB[i].post.title,
+            content: postDB[i].post.content,
+            createDate: postDB[i].post.createdAt,
+            img_url: postDB[i].post.img_url,
+            post_id: postDB[i].post.post_id,
           };
           post_list.push(list);
-        });
+          console.log(post_list);
+        }
+
         dispatch(getPost(post_list));
       })
       .catch(function (error) {
@@ -129,12 +130,12 @@ const editPostFB = (post_id = null, post = {}) => {
   };
 };
 
-const getOnePostFB = (post_id) => {
+const getOnePostDB = (post_id) => {
   return function (dispatch, getState, { history }) {
     instance
-      .get(`/api/post/${post_id}`, {})
+      .get(`/post/${post_id}`, {})
       .then(function (response) {
-        const post = response.data.response;
+        const post = response.data.posts;
         dispatch(getOnePost(post));
       })
       .catch(function (error) {
@@ -147,8 +148,9 @@ export default handleActions(
   {
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action);
+        console.log(action.payload);
         draft.list = action.payload.post_list;
+        console.log(draft.list);
       }),
 
     [ADD_POST]: (state, action) =>
@@ -190,7 +192,7 @@ const actionCreators = {
   deletePost,
   editPostFB,
   editPost,
-  getOnePostFB,
+  getOnePostDB,
   getOnePost,
 };
 export { actionCreators };

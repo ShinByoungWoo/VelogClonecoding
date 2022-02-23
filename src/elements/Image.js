@@ -18,7 +18,7 @@ const Image = (props) => {
 };
 
 Image.defaultProps = {
-  src: "https://10wallpaper.com/wallpaper/1366x768/1407/disney_castle-High_quality_wallpaper_1366x768.jpg",
+  src: "",
   size: "",
   border_radius: false,
 };
