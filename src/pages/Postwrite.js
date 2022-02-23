@@ -12,6 +12,7 @@ import { Grid, Input } from "../elements/Index";
 import Upload from "../shared/Upload";
 
 const Write = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   // const [tag, setTag] = useState("");
@@ -27,9 +28,30 @@ const Write = (props) => {
   //   dispatch(userActions.addPostDB(title, content));
   // };
 
+  //포스트 ID값 가져오기 (id값 url 미설정)
+  const post_id = props.match.params.post_id;
+  console.log(post_id);
+
+  //포스트DB에 저장된 리스트 가져오기
+  const post_list = useSelector((state) => state.post.post_list);
+  console.log(post_list);
+
+  //아이디 값이 있을 때 수정모드
+  const is_edit = post_id ? true : false;
+  console.log(is_edit);
+
+  //값 수정하기 미완2022.2.23 02:51
+  React.useEffect(() => {
+    dispatch(postActions.getOnePost(post_id));
+
+    if (is_edit) {
+      setTitle(post_list.title);
+    }
+  }, []);
+
   // //추가하기
   const postAdd = () => {
-    dispatch(postActions.addPostDB(title, content));
+    dispatch(postActions.addPostDB());
   };
 
   return (
@@ -37,20 +59,13 @@ const Write = (props) => {
       <Grid flex width="100%" height="100%">
         <LeftArea>
           <Grid padding="2rem 3rem 0rem 3rem">
-            <TitleAreas
-              border="none"
-              placeholder="제목을 입력하세요"
-              onChange={(e) => setTitle(e.target.value)}
-            />
+            <TitleAreas border="none" placeholder="제목을 입력하세요" onChang />
             <TitleLine />
 
             <Upload />
 
             <MarkDownArea>
-              <ContentArea
-                placeholder="당신의 이야기를 적어보세요..."
-                onChange={(e) => setContent(e.target.value)}
-              />
+              <ContentArea placeholder="당신의 이야기를 적어보세요..." />
             </MarkDownArea>
           </Grid>
           <FooterArea>

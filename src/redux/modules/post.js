@@ -8,31 +8,37 @@ const DELETE_POST = "DELETE_POST";
 const EDIT_POST = "EDIT_POST";
 const GET_ONE_POST = "GET_ONE_POST";
 
+const SET_PREVIEW = "SET_PREVIEW";
+
 const getPost = createAction(GET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
-const deletePost = createAction(DELETE_POST, (post_index) => ({ post_index }));
+const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
 const getOnePost = createAction(GET_ONE_POST, (post) => ({ post }));
 
+const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
+
+//초기값
 const initialState = {
   list: [],
   detail: [],
+  preview: null,
 };
 
 // middleware
 
 //추가하기
-const addPostDB = (title, content, img_url) => {
+const addPostDB = (title, content, image) => {
   return function (dispatch, getState, { history }) {
     const is_local = localStorage.getItem("is_login");
     // console.log(is_local);
     const _post = {
       title: title,
       content: content,
-      img_url: img_url,
+      image: image,
     };
     let post = { ..._post };
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
@@ -42,15 +48,17 @@ const addPostDB = (title, content, img_url) => {
         {
           title: title,
           content: content,
-          img_url: img_url,
+          image: image,
         }, // 서버가 필요로 하는 데이터를 넘겨주고,
         // (instance.defaults.headers.common[
         //   "Authorization"
         // ] = `Bearer ${is_local}`)
-        { headers: { authorization: `Bearer ${is_local}` } }
+        { headers: { Authorization: `Bearer ${is_local}` } }
+        // instance.defaults.headers.common["Authorization"] = `Bearer ${is_local}`
       )
       .then((res) => {
-        window.alert(res.data.success);
+        // window.alert(res.data.msg);
+        console.log(res)
         dispatch(addPost(post));
         history.push("/");
       })
@@ -61,6 +69,21 @@ const addPostDB = (title, content, img_url) => {
 };
 
 //불러오기
+// const getPostDB = (post_id) => {
+//   return (dispatch, getState, { history }) => {
+//     const is_local = localStorage.getItem("is_login");
+//     instance
+//       .get("/post", {}, { headers: { authorization: `Bearer ${is_local}` } })
+//       .then((response) => {
+//         dispatch(getPost(response.data.posts));
+//         console.log(response.data.posts);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// };
+
 const getPostDB = () => {
   return function (dispatch, getState, { history }) {
     const is_local = localStorage.getItem("is_login");
@@ -92,7 +115,7 @@ const getPostDB = () => {
 };
 
 //삭제하기
-const deletePostFB = (post_id = null) => {
+const deletePostDB = (post_id) => {
   return function (dispatch, getState, { history }) {
     const _post_idx = getState().post.list.findIndex(
       (p) => p.post_id === post_id
@@ -133,7 +156,7 @@ const editPostFB = (post_id = null, post = {}) => {
 const getOnePostDB = (post_id) => {
   return function (dispatch, getState, { history }) {
     instance
-      .get(`/post/${post_id}`, {})
+      .get(`/api/post/${post_id}`, {})
       .then(function (response) {
         const post = response.data.posts;
         dispatch(getOnePost(post));
@@ -148,7 +171,7 @@ export default handleActions(
   {
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
+        console.log(action);
         draft.list = action.payload.post_list;
         console.log(draft.list);
       }),
@@ -164,6 +187,12 @@ export default handleActions(
         });
         draft.list = deleted;
       }),
+
+    // 테스트용 확인 x 2/23 2:58
+    // [DELETE_POST]: (state, action) =>
+    // produce(state, (draft) => {
+    //   draft.list = draft.list.filter((p) => e.post_id !== action.payload.post_id)
+    // }),
     [EDIT_POST]: (state, action) =>
       produce(state, (draft) => {
         let idx = draft.list.findIndex(
@@ -179,6 +208,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.detail = action.payload.post;
       }),
+
+
+      //프리뷰
+    [SET_PREVIEW]: (state, action) =>
+      produce(state, (draft) => {
+        draft.preview = action.payload.preview;
+        console.log(action.payload.preview)
+      }),
   },
   initialState
 );
@@ -188,11 +225,12 @@ const actionCreators = {
   addPost,
   getPostDB,
   addPostDB,
-  deletePostFB,
+  deletePostDB,
   deletePost,
   editPostFB,
   editPost,
   getOnePostDB,
   getOnePost,
+  setPreview,
 };
 export { actionCreators };
