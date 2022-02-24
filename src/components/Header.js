@@ -19,6 +19,7 @@ const Header = (props) => {
 
   const is_login = useSelector((state) => state.user.is_login);
   const is_local = localStorage.getItem("is_login") ? true : false;
+  console.log(is_login);
   // const user_nick = localStorage.getItem("user_nick");
 
   // const [isLoginMode, setIsLoginMode] = React.useState(true);
@@ -38,17 +39,12 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <Grid is_flex>
-        <Container>
-          <Text
-            size="30px"
-            bold
-            color="#212529"
-            margin="1rem"
-            cursor="pointer"
-            onClick={() => {
-              history.push("/");
-            }}
-          >
+        <Container
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          <Text size="30px" bold color="#212529" margin="1rem" cursor="pointer">
             velog
           </Text>
         </Container>

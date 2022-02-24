@@ -80,6 +80,7 @@ const getPostDB = () => {
             createDate: postDB[i].post.createdAt,
             img_url: postDB[i].post.img_url,
             post_id: postDB[i].post.post_id,
+            nickName: postDB[i].nickName,
           };
           post_list.push(list);
           console.log(post_list);
@@ -137,7 +138,7 @@ const getOnePostDB = (post_id) => {
     instance
       .get(`/post/${post_id}`, {})
       .then(function (response) {
-        const post = response.data.posts;
+        const post = response.data;
         dispatch(getOnePost(post));
       })
       .catch(function (error) {

@@ -37,6 +37,9 @@ const ModalLogin = (props) => {
     setState(true);
   };
 
+  React.useEffect(() => {
+  }, [state]);
+
   const login = () => {
     if (loginid === "" || loginpwd === "") {
       window.alert("이메일 혹은 비밀번호를 입력하지 않으셨습니다.");
@@ -80,10 +83,7 @@ const ModalLogin = (props) => {
       return;
     }
 
-    // if (userName === "") {
-    //   window.alert("잘못된 이메일 형식입니다.");
-    //   return;
-    // }
+ 
     dispatch(userActions.signUpDB(signupid, nickname, signupPwd));
   };
 

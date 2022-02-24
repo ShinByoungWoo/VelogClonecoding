@@ -10,6 +10,9 @@ const CommentList = (props) => {
   //   const post_id = props.post;
   //   const comments = props.comment_list[post_id];
 
+  const comment_list = useSelector((state) => state.post.list);
+  // console.log(comment_list);
+
   return (
     <React.Fragment>
       {/* {comments &&

@@ -1,4 +1,5 @@
 import React from "react";
+import { history } from "../redux/configureStore";
 // import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Text, Image } from "../elements/Index";
@@ -18,21 +19,24 @@ const Post = (props) => {
   // );
 
   const title = props.title;
-  // const nickname = props.nickname;
+  const nickname = props.nickname;
   const content = props.content;
-  // const comment = props.comment;
-  // const createDate = props.createDate;
+  const comment = props.comment;
+  const createDate = props.createDate;
   const img_url = props.img_url;
+  const post_id = props.post_id;
 
-  console.log(title, content, img_url);
+  console.log(title, content, img_url, createDate, nickname);
 
   return (
     <React.Fragment>
       <Grid width="auto">
-        <Cards>
-          <Link to="/Detail">
+        <Cards onClick={()=>{
+          history.push(`/post/${post_id}`)
+        }}>
+          {/* <Link to="/Detail"> */}
             <Image size="cover" border_radius="10px" src={img_url} />
-          </Link>
+          {/* </Link> */}
           <Grid padding="16px 16px 5px 16px">
             <Text size="0.975rem" bold>
               {title}
