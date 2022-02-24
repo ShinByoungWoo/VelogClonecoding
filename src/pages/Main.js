@@ -16,10 +16,7 @@ const Main = () => {
     dispatch(postActions.getPostDB());
   }, []);
 
-  console.log("여기는 언제 실행되는 것인가!");
-
   const post_list = useSelector((state) => state.post.list);
-  console.log(post_list);
 
   // const user_nick = localStorage.getItem("user_nick");
 

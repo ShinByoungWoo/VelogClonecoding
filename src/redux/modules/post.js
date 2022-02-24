@@ -25,16 +25,17 @@ const initialState = {
 // middleware
 
 //추가하기
-const addPostDB = (title, content, img_url) => {
+const addPostDB = (title, content, img) => {
   return function (dispatch, getState, { history }) {
     const is_local = localStorage.getItem("is_login");
-    // console.log(is_local);
     const _post = {
       title: title,
       content: content,
-      img_url: img_url,
+      img_url: img,
     };
+    console.log(title, content, img);
     let post = { ..._post };
+    console.log(post);
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
     instance
       .post(
@@ -42,7 +43,7 @@ const addPostDB = (title, content, img_url) => {
         {
           title: title,
           content: content,
-          img_url: img_url,
+          img_url: img,
         }, // 서버가 필요로 하는 데이터를 넘겨주고,
         // (instance.defaults.headers.common[
         //   "Authorization"
@@ -50,7 +51,7 @@ const addPostDB = (title, content, img_url) => {
         { headers: { authorization: `Bearer ${is_local}` } }
       )
       .then((res) => {
-        window.alert(res.data.success);
+        window.alert(res.data.msg);
         dispatch(addPost(post));
         history.push("/");
       })
@@ -67,8 +68,9 @@ const getPostDB = () => {
     instance
       .get("/post", {}, { headers: { authorization: `Bearer ${is_local}` } })
       .then(function (response) {
+        console.log(response);
         const postDB = response.data.posts;
-        console.log(postDB);
+
         console.log(postDB[0].post.title);
         let post_list = [];
         for (let i = 0; i < postDB.length; i++) {

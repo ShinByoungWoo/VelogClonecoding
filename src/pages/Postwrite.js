@@ -6,139 +6,82 @@ import instance from "../shared/Api";
 
 //style
 import styled from "styled-components";
-import { Grid } from "../elements/Index";
-
-//toast
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
+import { Grid, Input, Image, Text } from "../elements/Index";
 
 const Write = (props) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  // const [tag, setTag] = useState("");
-  // const [content, setContent] = useState("");
-
-  // const publish = () => {
-  //   if (title === "" || content === "") {
-  //     window.alert("내용을 모두 입력하여 주세요");
-  //     console.log(editorRef.current.getInstance().getData());
-  //     return;
-  //   }
-
-  //   dispatch(userActions.addPostDB(title, content));
-  // };
-
-  //에디터 부분
-  const editorRef = React.useRef();
-
-  // 콘텐츠 값 가져와짐!
-  // const contents = editorRef.current.getInstance().preview.el.innerText;
-  // console.log(contents)
-
-  // console.log(title);
-
-  // const context = editorRef.current.getInstance().getHTML();
-  // console.log(context);
-
-  //텍스트 에디터 image url 줄이는 방법
-  React.useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.getInstance().removeHook("addImageBlobHook");
-      editorRef.current
-        .getInstance()
-        .addHook("addImageBlobHook", (image, callback) => {
-          (async () => {
-            let is_local = localStorage.getItem("is_login");
-            let formData = new FormData();
-            let baseUrl = "http://3.34.178.85";
-            formData.append("image", image);
-            console.log(image);
-
-            // instance.defaults.withCredentials = true; //국ㄹ
-            const { data: url } = await instance.post(
-              `${baseUrl}/post`,
-              formData,
-              {
-                header: {
-                  "content-type": "multipart/formdata",
-                  Authorization: `Bearer ${is_local}`,
-                },
-              }
-            );
-            console.log(url);
-            callback(url, "image");
-          })();
-
-          return false;
-        });
-    }
-
-    return () => {};
-  }, [editorRef]);
+  const [content, setContent] = useState("");
+  const [img, setImg] = useState("");
+  // const preview = useSelector((state) => state.image.preview);
 
   // //추가하기
   const postAdd = () => {
-    const contents = editorRef.current.getInstance().getMarkdown();
-    console.log(title, contents);
-    if (title === "" || contents === "") {
+    if (title === "" || content === "") {
       window.alert("제목과 내용을 모두 입력하여 주세요");
-      console.log(editorRef.current.getInstance().preview.el.innerText);
       return;
     }
+    console.log(title, content, img);
 
-    dispatch(postActions.addPostDB(title, contents));
+    dispatch(postActions.addPostDB(title, content, img));
   };
 
   return (
     <React.Fragment>
-      <Grid flex>
+      <Grid bg="#ff6f60" flex width="100%" height="100vh">
         <LeftArea>
-          <TitleAreas
-            border="none"
-            placeholder="제목을 입력하세요"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <TitleLine />
-          <TagArea
-            placeholder="태그를 입력하세요"
-            // onChange={(e) => setTag(e.target.value)}
-          />
+          <Grid padding="2rem 3rem 0rem 3rem">
+            <TitleAreas
+              border="none"
+              placeholder="제목을 입력하세요"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <Grid is_flex width="auto" height="auto">
+              <Text margin="0px" bold center>
+                이미지 URL
+              </Text>
 
-          <Editor //에디터
-            placeholder="당신의 이야기를 적어보세요..."
-            previewStyle="vertical"
-            height="100vh"
-            width="100vw"
-            initialEditType="markdown"
-            initialValue=""
-            ref={editorRef}
-          />
+              <Input
+                placeholder="이미지 주소를 넣어주세요"
+                _onChange={(e) => setImg(e.target.value)}
+              />
+            </Grid>
+            <ContentArea
+              placeholder="당신의 이야기를 들려주세요"
+              onChange={(e) => setContent(e.target.value)}
+            ></ContentArea>
 
-          <FooterArea>
-            <div>
-              <CancleBtn>나가기</CancleBtn>
-            </div>
+            <FooterArea>
+              <div>
+                <CancleBtn>나가기</CancleBtn>
+              </div>
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <SaveBtn>임시저장</SaveBtn>
-              <AddBtn onClick={postAdd}>출간하기</AddBtn>
-            </div>
-          </FooterArea>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <SaveBtn>임시저장</SaveBtn>
+                <AddBtn onClick={postAdd}>출간하기</AddBtn>
+              </div>
+            </FooterArea>
+          </Grid>
         </LeftArea>
 
         {/* 오른쪽 */}
-        {/* <RightArea></RightArea> */}
+        <RightArea>
+          {/* <Image
+            margin="10px 0px 0px 0px"
+            shape="rectangle"
+            width="50%"
+            src={preview ? preview : "http://via.placeholder.com/400x300"}
+          /> */}
+        </RightArea>
       </Grid>
     </React.Fragment>
   );
 };
 
 const LeftArea = styled.div`
-  padding-top: 2rem;
-  padding-left: 3rem;
-  padding-right: 3rem;
-  width: 100vw;
+  width: 50vw;
   height: 100vh;
+  background-color: #ffffff;
   /* -ms-overflow-style: none;
   ::-webkit-scrollbar {
     display: none;
@@ -158,49 +101,23 @@ const TitleAreas = styled.textarea`
   border: none;
   font-weight: bold;
   color: black;
-`;
-
-const TagArea = styled.textarea`
-  background: transparent;
-  display: block;
-  outline: none;
-  border: none;
-  padding: 0px;
-  resize: none;
-  cursor: text;
-  font-size: 1rem;
-`;
-
-const TitleLine = styled.div`
-  background: rgb(73, 80, 87);
-  height: 6px;
-  width: 4rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-  border-radius: 1px;
-`;
-
-const MarkDownArea = styled.div`
-  margin-bottom: -30px;
-  margin-right: -30px;
-  padding-bottom: 30px;
-  height: 100%;
-  outline: none;
-  position: relative;
+  background-color: #ffffff;
+  margin: 0px 0px 10px 0px;
 `;
 
 const ContentArea = styled.textarea`
   resize: none;
   border: none;
   outline: none;
-  padding: 0px;
+  padding: 20px 0px 0px 0px;
   width: 100%;
-  height: 100%;
-  font-size: 24px;
+  height: 73.5%;
+  font-size: 20px;
   margin-top: 30px;
   ::placeholder {
     font-style: italic;
   }
+  background-color: #ffffff;
 `;
 
 const FooterArea = styled.div`
@@ -208,14 +125,15 @@ const FooterArea = styled.div`
   ${"" /* position: fixed; */}
   left: 0px;
   bottom: 0;
-  width: 46vw;
+  width: 100%;
   height: 50px;
-  padding: 10px;
+  padding: 0px;
   margin: 0px;
   display: flex;
   background-color: white;
   justify-content: space-between;
-  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 14px 0px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
 `;
 
 const AddBtn = styled.button`
@@ -229,7 +147,7 @@ const AddBtn = styled.button`
   cursor: pointer;
   align-items: center;
   border-radius: 4px;
-  margin: 0px 10px;
+  margin: 0px 0px 0px 15px;
 
   &:hover {
     background-color: #e6e6e6;
@@ -276,8 +194,7 @@ const CancleBtn = styled.button`
 `;
 // 오른쪽 화면 css
 const RightArea = styled.div`
-  padding: 48px;
-  width: 100vw;
+  width: 50vw;
   height: 100vh;
   overflow-y: auto;
   background-color: #fbfdfc;

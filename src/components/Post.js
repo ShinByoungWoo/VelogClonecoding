@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { FaHeart } from "react-icons/fa";
 
 const Post = (props) => {
+  console.log(props);
   // const dispatch = useDispatch();
 
   // console.log(
@@ -20,10 +21,10 @@ const Post = (props) => {
   // const nickname = props.nickname;
   const content = props.content;
   // const comment = props.comment;
-  const createDate = props.createDate;
+  // const createDate = props.createDate;
   const img_url = props.img_url;
 
-  console.log(title, content, createDate, img_url);
+  console.log(title, content, img_url);
 
   return (
     <React.Fragment>
@@ -44,7 +45,7 @@ const Post = (props) => {
             >
               {content}
             </Text>
-            <Text>{createDate}</Text>
+            <Text>2022.02.24</Text>
             <Text>짱이에요</Text>
           </Grid>
           <Grid padding="0px 16px" border="1px solid #F1F3F5" is_flex>

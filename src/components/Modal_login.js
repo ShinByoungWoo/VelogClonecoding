@@ -31,17 +31,11 @@ const ModalLogin = (props) => {
 
   const changeState = () => {
     setState(false);
-    console.log(state); //false
   };
 
   const changeAgainState = () => {
     setState(true);
-    console.log(state); //true
   };
-
-  React.useEffect(() => {
-    console.log("제발 잠좀 자자");
-  }, [state]);
 
   const login = () => {
     if (loginid === "" || loginpwd === "") {
