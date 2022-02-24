@@ -1,30 +1,24 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Grid, Input, Button, Text } from "../elements/Index";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const CommentWrite = (props) => {
-  // const user_nick = localStorage.getItem("user_nick");
-  // const { post_id } = props;
-  const [comment, setComment] = useState("");
-  const dispatch = useDispatch();
-  const commentRef = useRef();
+  const user_nick = localStorage.getItem("user_nick");
+  const { post_id } = props;
 
-  const post_id = useSelector((state) => state.user.user)
-  console.log(post_id)
+  const [user_comment, setComment] = React.useState("");
+  const dispatch = useDispatch();
 
   const addComment = () => {
-
-    dispatch(commentActions.addCommentFB(comment, post_id));
-    commentRef.current.value = '';
+    dispatch(commentActions.addCommentFB(user_comment, user_nick, post_id));
   };
 
   return (
     <React.Fragment>
       <Grid is_flex margin="5.5rem auto 0px auto" center width="40rem">
         <Input
-          value={comment}
-          ref={commentRef}
+          value={user_comment}
           _onChange={(e) => {
             setComment(e.target.value);
           }}

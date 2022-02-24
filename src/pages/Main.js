@@ -2,11 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-
 //pages
 import Post from "../components/Post";
 import Header from "../components/Header";
-
 //style
 import { Grid } from "../elements/Index";
 import styled from "styled-components";
@@ -18,6 +16,7 @@ const Main = () => {
     dispatch(postActions.getPostDB());
   }, []);
 
+  console.log("여기는 언제 실행되는 것인가!");
 
   const post_list = useSelector((state) => state.post.list);
   console.log(post_list);
@@ -40,7 +39,7 @@ const Main = () => {
 };
 
 const Wrap = styled.div`
-  display: flex;
+  dispaly: flex;
 `;
 
 export default Main;

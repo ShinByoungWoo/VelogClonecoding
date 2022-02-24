@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Grid, Text, Image } from "../elements/Index";
 import styled from "styled-components";
 import { FaHeart } from "react-icons/fa";
-import { useSelector } from "react-redux";
 
 const Post = (props) => {
   // const dispatch = useDispatch();
@@ -23,24 +22,15 @@ const Post = (props) => {
   // const comment = props.comment;
   const createDate = props.createDate;
   const img_url = props.img_url;
-  console.log(img_url)
-  // onClick={() => {
-  //   history.push(`/detail/${props._id}`);
-  // }}
 
-  // console.log(title, content, createDate, img_url);
-
-//닉네임 가져오기
-const nickname = useSelector(state => state.user.user)
-
-console.log(nickname)
+  console.log(title, content, createDate, img_url);
 
   return (
     <React.Fragment>
-      <Grid width="auto" height="500px">
+      <Grid width="auto">
         <Cards>
           <Link to="/Detail">
-            <Image size="" border_radius="10px" src={img_url} />
+            <Image size="cover" border_radius="10px" src={img_url} />
           </Link>
           <Grid padding="16px 16px 5px 16px">
             <Text size="0.975rem" bold>
@@ -55,7 +45,7 @@ console.log(nickname)
               {content}
             </Text>
             <Text>{createDate}</Text>
-            {/* <Text>짱이에요</Text> */}
+            <Text>짱이에요</Text>
           </Grid>
           <Grid padding="0px 16px" border="1px solid #F1F3F5" is_flex>
             <Text>by Noah Ko</Text>
@@ -72,7 +62,7 @@ console.log(nickname)
 const Cards = styled.div`
   width: 20rem;
   min-width: 20rem;
-  height: 500px;
+  height: auto;
   ${"" /* border: 1px solid black; */}
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 50%) 0px 4px 16px 0px;
