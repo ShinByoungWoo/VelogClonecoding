@@ -1,21 +1,21 @@
 //function import
-import React from "react"
-import { actionCreators as postActions } from "../redux/modules/post"
-import { actionCreators as commentActions } from "../redux/modules/comment"
-import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
+import React from "react";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as commentActions } from "../redux/modules/comment";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 //style import
-import { Grid, Text, Image } from "../elements/Index"
+import { Grid, Text, Image } from "../elements/Index";
 
 //page import
-import Header from "../components/Header"
-import CommentWrite from "../components/CommentWrite"
-import CommentList from "../components/CommentList"
+import Header from "../components/Header";
+import CommentWrite from "../components/CommentWrite";
+import CommentList from "../components/CommentList";
 
 const Detail = (props) => {
-  const dispatch = useDispatch()
-  console.log(props)
+  const dispatch = useDispatch();
+  console.log(props);
   // const post_id = props.match.params.postid;
   // React.useEffect(() => {
   //   dispatch(postActions.getOnePostFB(post_id));
@@ -23,21 +23,26 @@ const Detail = (props) => {
   // }, []);
 
   //댓글 불러오기
-  const id = props.match.params.post_id
+  const id = props.match.params.post_id;
 
   React.useEffect(() => {
-    dispatch(postActions.getOnePostDB(id))
-  }, [])
+    console.log("useEffect top");
+    dispatch(postActions.getOnePostDB(id));
+    console.log("useEffect");
+  }, []);
 
-  const post_list = useSelector((state) => state.post.detail)
+  const post = useSelector((state) => state.post.detail);
 
-  console.log(id)
-  console.log(post_list)
+  console.log(id);
+  console.log(post);
+  if (!post) {
+    return <></>;
+  }
 
   const {
     detail_post: { title, content, img_url, createdAt },
     email,
-  } = post_list
+  } = post;
 
   // const title = post_list.detail_post.title
   // const email = post_list.email
@@ -67,7 +72,7 @@ const Detail = (props) => {
         <CommentList />
       </Grid>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Detail
+export default Detail;
