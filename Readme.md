@@ -17,7 +17,7 @@
 
   ### 메인페이지
   - 로그인 여부에 따라 변하는 헤더
-  - 서버에서 불러와 메인페이지에 뿌려주기  
+  - Axios 통신으로 데이터를 받아 메인화면에 노출  
   - 클릭한 게시물의 상세페이지 이동
 
 ### 💚 구현영상
@@ -32,4 +32,4 @@
 
 ## 📁 Github Repo
 - 백엔드 Github : https://github.com/DZOOOOO/velog-clone
-- 프론트 Github : https://github.com/Noah8922/VelogClonecoding
+- 프론트 Github : https://github.com/ShinByoungWoo/VelogClonecoding
