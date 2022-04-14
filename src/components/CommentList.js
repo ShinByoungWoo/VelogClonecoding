@@ -1,50 +1,15 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Text } from "../elements/Index";
-import { actionCreators as commentActions } from "../redux/modules/comment";
-import moment from "moment";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Text } from '../elements/Index';
 
 const CommentList = (props) => {
-  //   const dispatch = useDispatch();
-
-  //   const post_id = props.post;
-  //   const comments = props.comment_list[post_id];
-
   const comment_list = useSelector((state) => state.post.list);
-  // console.log(comment_list);
 
   return (
     <React.Fragment>
-      {/* {comments &&
-        comments.map((p, idx) => {
-          if (p.articleId._id === post_id) {
-            return <CommentItem key={idx} {...p} />;
-          }
-        })} */}
       <Text>이렇게 하면 댓글이 달리나요</Text>
     </React.Fragment>
   );
 };
 
 export default CommentList;
-
-// const CommentItem = (props) => {
-//   const createDate = moment(props.createDate).format("YYYY/MM/DD - HH:mm:ss");
-//   return (
-//     <Grid is_flex>
-//       <Text size="19px">{props.user_nick}</Text>
-//       <Grid is_flex margin="0px 10px 0px 30px">
-//         <Text size="19px" bold>
-//           {props.user_comment}
-//         </Text>
-//         <Text color="gray">{createDate}</Text>
-//       </Grid>
-//     </Grid>
-//   );
-// };
-
-// CommentItem.defaultProps = {
-//   user_nick: "jini",
-//   user_comment: "이게 되네",
-//   createDate: "2022-02-04 10:00:00",
-// };

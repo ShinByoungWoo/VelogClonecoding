@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import React from "react";
+import styled from 'styled-components';
+import React from 'react';
 
 const Image = (props) => {
   const { src, size, aligntem, border_radius } = props;
@@ -18,8 +18,8 @@ const Image = (props) => {
 };
 
 Image.defaultProps = {
-  src: "",
-  size: "",
+  src: '',
+  size: '',
   border_radius: false,
 };
 
@@ -33,11 +33,6 @@ const ImageDefault = styled.img`
   object-fit: contain;
   display: block;
   ${(props) =>
-    props.border_radius ? `border-radius: ${props.border_radius};` : ""}
-  ${
-    "" /* @media (max-width: 800px) {
-    margin-top: 1.5rem;
-  } */
-  }
+    props.border_radius ? `border-radius: ${props.border_radius};` : ''}
 `;
 export default Image;

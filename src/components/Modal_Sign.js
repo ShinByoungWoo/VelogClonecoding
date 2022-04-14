@@ -21,15 +21,6 @@ const ModalSignup = (props) => {
   const { onClickModal } = props;
 
   const signup = () => {
-    // if (!emailCheck(userName)) {
-    //   window.alert("이메일 형식이 맞지 않습니다!");
-    //   return;
-    // }
-
-    // if (userName === "") {
-    //   window.alert("잘못된 이메일 형식입니다.");
-    //   return;
-    // }
     dispatch(userActions.signUpDB(Id, nickname, pwd, confirmPwd));
   };
 

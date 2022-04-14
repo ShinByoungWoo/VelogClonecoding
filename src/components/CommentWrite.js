@@ -1,20 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Input, Button, Text } from "../elements/Index";
-import { actionCreators as commentActions } from "../redux/modules/comment";
+import { useDispatch, useSelector } from 'react-redux';
+import { Grid, Input, Button, Text } from '../elements/Index';
+import { actionCreators as commentActions } from '../redux/modules/comment';
 
 const CommentWrite = (props) => {
-  // const user_nick = localStorage.getItem("user_nick");
-  // const { post_id } = props;
-  console.log(props)
-  const {post_id} = props;
+  const { post_id } = props;
 
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const dispatch = useDispatch();
   const commentRef = useRef();
 
   const addComment = () => {
-
     dispatch(commentActions.addCommentFB(comment, post_id));
     commentRef.current.value = '';
   };

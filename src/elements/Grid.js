@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Grid = (props) => {
   const {
@@ -56,9 +56,9 @@ Grid.defaultProps = {
   is_end: false,
   is_center: false,
   is_colum: false,
-  width: "100%",
+  width: '100%',
   min_width: false,
-  height: "100%",
+  height: '100%',
   padding: false,
   margin: false,
   bg: false,
@@ -72,45 +72,45 @@ Grid.defaultProps = {
 };
 
 const GridBox = styled.div`
-  ${(props) => (props.flex_wrap ? `flex-wrap : wrap;` : "")}
-  ${(props) => (props.flex ? `display: flex; ` : "")}
+  ${(props) => (props.flex_wrap ? `flex-wrap : wrap;` : '')}
+  ${(props) => (props.flex ? `display: flex; ` : '')}
   min-width: ${(props) => props.min_width};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   box-sizing: border-box;
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
+  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
   ${(props) =>
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between; `
-      : ""}
+      : ''}
   ${(props) =>
     props.is_end
       ? `display: flex; align-items: center; justify-content: flex-end; `
-      : ""}
-  ${(props) => (props.center ? `text-align : center` : "")}
-  ${(props) => (props.border ? `border: ${props.border};` : "")}
+      : ''}
+  ${(props) => (props.center ? `text-align : center` : '')}
+  ${(props) => (props.border ? `border: ${props.border};` : '')}
   ${(props) =>
-    props.border_radius ? `border-radius: ${props.border_radius};` : ""}
+    props.border_radius ? `border-radius: ${props.border_radius};` : ''}
   ${(props) =>
     props.box_shadow
       ? `box-shadow: rgb(222 222 222) 0px 2px 4px 0px, #fff 0px 0px 0px 1px;`
-      : ""}
+      : ''}
   :hover {
     ${(props) =>
-      props.box_shadow ? `box-shadow: rgb(222 222 222) 0px 6px 18px 0px` : ""}
+      props.box_shadow ? `box-shadow: rgb(222 222 222) 0px 6px 18px 0px` : ''}
   }
 
   ${(props) =>
     props.is_center
       ? `display: flex; align-items: center; justify-content: flex-end; `
-      : ""}
+      : ''}
 
   ${(props) =>
     props.is_colum
       ? `display: flex; align-items: center; flex-direction: colum; `
-      : ""}
+      : ''}
 
   @media only screen and (max-width: 960px) {
   }

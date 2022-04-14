@@ -30,7 +30,6 @@ const loginDB = (loginid, loginpwd) => {
       .post("/login", { email: loginid, password: loginpwd })
       .then((res) => {
         alert(res.data.msg);
-        // const accessToken = res.data.token; // 콘솔찍어보기
         localStorage.setItem("user_nick", res.data.user_nick);
         localStorage.setItem("is_login", res.data.token);
         dispatch(setUser());
@@ -50,7 +49,6 @@ const signUpDB = (singupid, nickname, signupPwd) => {
       .then((res) => {
         console.log(res);
         window.alert(res.data.msg);
-        // dispatch(setUser()) // 확인
         history.push("/");
       })
       .catch((error) => {
@@ -77,11 +75,6 @@ const idDuplcheckDB = (signupid) => {
       })
       .catch((error) => {
         console.log(error);
-        // let response;
-        // console.log(error);
-        // console.log(response.errorMessage);
-        console.log(error.res);
-        // window.alert(error.response.errorMessage);
       });
   };
 };
@@ -93,24 +86,9 @@ const logoutDB = () => {
     localStorage.removeItem("user_nick");
     dispatch(logOut());
     history.replace("/");
-    //replace는 push와 달리 뒤로가기해도 원래 페이지가 나오지 않음.
   };
 };
 
-// 로그인 체크
-// const loginCheckDB = () => {
-//   return function (dispatch, getState, { history }) {
-//     const token = localStorage.getItem("token");
-//     const user_nick = localStorage.getItem("user_nick");
-
-//     if (token) {
-//       dispatch(setUser({ user_nick: user_nick, token: token }));
-//     }
-//   };
-// };
-
-//reducer
-//produce (immer) 이용하여 불변성 유지
 export default handleActions(
   {
     [SET_USER]: (state, action) =>
@@ -128,7 +106,6 @@ export default handleActions(
   initialState
 );
 
-//action creator export
 const actionCreators = {
   logOut,
   setUser,
@@ -137,7 +114,6 @@ const actionCreators = {
   signUpDB,
   logoutDB,
   idDuplcheckDB,
-  // loginCheckDB,
 };
 
 export { actionCreators };

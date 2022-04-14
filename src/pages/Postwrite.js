@@ -1,24 +1,21 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { actionCreators as userActions } from "../redux/modules/user";
-import { actionCreators as postActions } from "../redux/modules/post";
-import instance from "../shared/Api";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postActions } from '../redux/modules/post';
 
 //style
-import styled from "styled-components";
-import { Grid, Input, Image, Text } from "../elements/Index";
+import styled from 'styled-components';
+import { Grid, Input, Image, Text } from '../elements/Index';
 
 const Write = (props) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [img, setImg] = useState("");
-  // const preview = useSelector((state) => state.image.preview);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [img, setImg] = useState('');
 
-  // //추가하기
+  // 추가하기
   const postAdd = () => {
-    if (title === "" || content === "") {
-      window.alert("제목과 내용을 모두 입력하여 주세요");
+    if (title === '' || content === '') {
+      window.alert('제목과 내용을 모두 입력하여 주세요');
       return;
     }
     console.log(title, content, img);
@@ -56,7 +53,7 @@ const Write = (props) => {
                 <CancleBtn>나가기</CancleBtn>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <SaveBtn>임시저장</SaveBtn>
                 <AddBtn onClick={postAdd}>출간하기</AddBtn>
               </div>
@@ -64,15 +61,7 @@ const Write = (props) => {
           </Grid>
         </LeftArea>
 
-        {/* 오른쪽 */}
-        <RightArea>
-          {/* <Image
-            margin="10px 0px 0px 0px"
-            shape="rectangle"
-            width="50%"
-            src={preview ? preview : "http://via.placeholder.com/400x300"}
-          /> */}
-        </RightArea>
+        <RightArea></RightArea>
       </Grid>
     </React.Fragment>
   );
@@ -82,10 +71,6 @@ const LeftArea = styled.div`
   width: 50vw;
   height: 100vh;
   background-color: #ffffff;
-  /* -ms-overflow-style: none;
-  ::-webkit-scrollbar {
-    display: none;
-  } */
 `;
 
 const TitleAreas = styled.textarea`
@@ -121,8 +106,6 @@ const ContentArea = styled.textarea`
 `;
 
 const FooterArea = styled.div`
-  /* z-index: 10; */
-  ${"" /* position: fixed; */}
   left: 0px;
   bottom: 0;
   width: 100%;

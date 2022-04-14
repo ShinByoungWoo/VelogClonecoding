@@ -1,28 +1,18 @@
-import React from "react";
-import { history } from "../redux/configureStore";
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
+import React from 'react';
+import { history } from '../redux/configureStore';
+import { useSelector, useDispatch } from 'react-redux';
+import { actionCreators as userActions } from '../redux/modules/user';
 //Style
-import { Text, Grid, Button } from "../elements/Index";
-import styled from "styled-components";
+import { Text, Grid, Button } from '../elements/Index';
+import styled from 'styled-components';
 //Icon
-import { FaSun, FaSistrix } from "react-icons/fa";
+import { FaSun, FaSistrix } from 'react-icons/fa';
 //component Import
-import Modal_login from "./Modal_login";
+import Modal_login from './Modal_login';
 
-const Header = (props) => {
+const Header = () => {
   const dispatch = useDispatch();
-
-  // const { author } = props;
-
-  // const is_login = false;
-
-  const is_login = useSelector((state) => state.user.is_login);
-  const is_local = localStorage.getItem("is_login") ? true : false;
-  console.log(is_login);
-  // const user_nick = localStorage.getItem("user_nick");
-
-  // const [isLoginMode, setIsLoginMode] = React.useState(true);
+  const is_local = localStorage.getItem('is_login') ? true : false;
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const openModal = () => {
@@ -32,16 +22,13 @@ const Header = (props) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  // const onClickModal = () => {
-  //   setIsLoginMode(!isLoginMode);
-  // };
-
+  
   return (
     <React.Fragment>
       <Grid is_flex>
         <Container
           onClick={() => {
-            history.push("/");
+            history.push('/');
           }}
         >
           <Text size="30px" bold color="#212529" margin="1rem" cursor="pointer">
@@ -82,7 +69,7 @@ const Header = (props) => {
               width="8rem"
               height="2rem"
               Text="새글작성"
-              _onClick={() => history.push("/write")}
+              _onClick={() => history.push('/write')}
               bg="#212529"
               borderRadius="1rem"
               cursor="pointer"
@@ -157,10 +144,10 @@ const Header = (props) => {
 };
 
 const Container = styled.div`
-  @import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@700&display=swap");
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@700&display=swap');
 
   Text {
-    font-family: "Fira Mono", monospace;
+    font-family: 'Fira Mono', monospace;
   }
 `;
 

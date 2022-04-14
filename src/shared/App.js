@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import "./App.css";
 import React from "react";
 import Write from "../pages/Postwrite";
@@ -17,7 +16,6 @@ function App() {
         <Route path="/write" exact component={Write} />
         <Route path="/write/:post_id" exact component={Write} />
         <Route path="/post/:post_id" exact component={Detail} />
-        {/* <Route path="/Detail" exact component={Detail} /> */}
         <Route path="/login" exact component={Login} />
       </ConnectedRouter>
     </React.Fragment>

@@ -14,7 +14,6 @@ import ModalSignup from "./Modal_Sign";
 
 const ModalLogin = (props) => {
   const dispatch = useDispatch();
-  //열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴.
   const { open, close } = props;
 
   const is_login = useSelector((state) => state.user.is_login);
@@ -157,14 +156,6 @@ const ModalLogin = (props) => {
                     로그인
                   </Button>
 
-                  {/* <Text margin="25px 0px" size="16px" color="#868E96">
-                    소셜 계정으로 로그인
-                  </Text>
-                  <Links>
-                    <BsGithub />
-                    <BsGoogle />
-                    <BsFacebook />
-                  </Links> */}
                   <Grid
                     margin="80px 0px 0px 0px"
                     width="auto"
@@ -313,11 +304,9 @@ const Img = styled.img`
 
 const InputGrid = styled.div`
   display: flex;
-  /* flex: 1 1 0%; */
   flex-direction: column;
   background-color: #ffffff;
   padding: 0px 32px;
-  /* margin-top: 44px; */
   text-align: left;
 `;
 

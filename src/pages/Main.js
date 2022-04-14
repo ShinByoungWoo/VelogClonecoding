@@ -1,18 +1,17 @@
-import React from "react";
-import { history } from "../redux/configureStore";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { actionCreators as postActions } from '../redux/modules/post';
 
 //pages
-import Post from "../components/Post";
-import Header from "../components/Header";
+import Post from '../components/Post';
+import Header from '../components/Header';
 
 //style
-import { Grid } from "../elements/Index";
-import styled from "styled-components";
-import { BsGraphUp } from "react-icons/bs";
-import { BiTimeFive } from "react-icons/bi";
+import { Grid } from '../elements/Index';
+import styled from 'styled-components';
+import { BsGraphUp } from 'react-icons/bs';
+import { BiTimeFive } from 'react-icons/bi';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -23,15 +22,13 @@ const Main = () => {
 
   const post_list = useSelector((state) => state.post.list);
 
-
   console.log(post_list);
 
-  // const user_nick = localStorage.getItem("user_nick");
   return (
     <React.Fragment>
       <Header />
 
-      <div style={{ display: "flex" }}>
+      <div style={{ display: 'flex' }}>
         <SubTitle>
           <BsGraphUp />
           트랜딩
@@ -45,12 +42,7 @@ const Main = () => {
       <Grid is_flex padding="0px 6rem" flex_wrap>
         {post_list.map((p, idx) => (
           <Wrap key={idx}>
-            <Post
-              {...p}
-              // onClick={() => {
-              //   history.push(`/post/${post_id}`);
-              // }}
-            />
+            <Post {...p} />
           </Wrap>
         ))}
         <Post />

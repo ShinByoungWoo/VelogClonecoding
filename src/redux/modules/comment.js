@@ -42,7 +42,6 @@ const addCommentFB = (content, post_id) => {
   return function (dispatch, getState, { history }) {
     const is_local = localStorage.getItem("is_login");
     const _comment = {
-      // user_nick: user_nick,
       content: content,
     };
     const comment_list = { ..._comment };
@@ -50,7 +49,6 @@ const addCommentFB = (content, post_id) => {
       .post(
         `/post/${post_id}/comment`,
         {
-          // user_nick: user_nick,
           content: content,
         },
         (instance.defaults.headers.common[
@@ -59,9 +57,7 @@ const addCommentFB = (content, post_id) => {
       )
       .then((response) => {
         console.log(response.data);
-        // const post_id = getState().comment_list[post_id]
         dispatch(addComment(comment_list, post_id));
-        // window.location.reload();
       })
       .catch((error) => {
         console.log(error);

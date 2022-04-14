@@ -1,12 +1,12 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import instance from "../../shared/Api";
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import instance from '../../shared/Api';
 
-const GET_POST = "GET_POST";
-const ADD_POST = "ADD_POST";
-const DELETE_POST = "DELETE_POST";
-const EDIT_POST = "EDIT_POST";
-const GET_ONE_POST = "GET_ONE_POST";
+const GET_POST = 'GET_POST';
+const ADD_POST = 'ADD_POST';
+const DELETE_POST = 'DELETE_POST';
+const EDIT_POST = 'EDIT_POST';
+const GET_ONE_POST = 'GET_ONE_POST';
 
 const getPost = createAction(GET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
@@ -20,14 +20,13 @@ const getOnePost = createAction(GET_ONE_POST, (post) => ({ post }));
 const initialState = {
   list: [],
   detail: null,
-}; //받아오는 값이거나 null값.
+};
 
 // middleware
-
 //추가하기
 const addPostDB = (title, content, img) => {
   return function (dispatch, getState, { history }) {
-    const is_local = localStorage.getItem("is_login");
+    const is_local = localStorage.getItem('is_login');
     const _post = {
       title: title,
       content: content,
@@ -36,24 +35,20 @@ const addPostDB = (title, content, img) => {
     console.log(title, content, img);
     let post = { ..._post };
     console.log(post);
-    // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
     instance
       .post(
-        "/post", // 미리 약속한 주소
+        '/post',
         {
           title: title,
           content: content,
           img_url: img,
-        }, // 서버가 필요로 하는 데이터를 넘겨주고,
-        // (instance.defaults.headers.common[
-        //   "Authorization"
-        // ] = `Bearer ${is_local}`)
+        },
         { headers: { authorization: `Bearer ${is_local}` } }
       )
       .then((res) => {
         window.alert(res.data.msg);
         dispatch(addPost(post));
-        history.push("/");
+        history.push('/');
       })
       .catch((error) => {
         console.log(error);
@@ -64,9 +59,9 @@ const addPostDB = (title, content, img) => {
 //불러오기
 const getPostDB = () => {
   return function (dispatch, getState, { history }) {
-    const is_local = localStorage.getItem("is_login");
+    const is_local = localStorage.getItem('is_login');
     instance
-      .get("/post", {}, { headers: { authorization: `Bearer ${is_local}` } })
+      .get('/post', {}, { headers: { authorization: `Bearer ${is_local}` } })
       .then(function (response) {
         console.log(response);
         const postDB = response.data.posts;
@@ -100,7 +95,7 @@ const deletePostFB = (post_id = null) => {
     const _post_idx = getState().post.list.findIndex(
       (p) => p.post_id === post_id
     );
-    window.alert("삭제되었습니다");
+    window.alert('삭제되었습니다');
     instance
       .delete(`/api/getpost/delete/${post_id}`, {})
       .then(function (response) {
@@ -108,7 +103,7 @@ const deletePostFB = (post_id = null) => {
         window.location.reload();
       })
       .catch((error) => {
-        console.error("Error removing document: ", error);
+        console.error('Error removing document: ', error);
       });
   };
 };
@@ -116,7 +111,7 @@ const deletePostFB = (post_id = null) => {
 //수정하기
 const editPostFB = (post_id = null, post = {}) => {
   return function (dispatch, getState, { history }) {
-    window.alert("수정되었습니다");
+    window.alert('수정되었습니다');
     instance
       .patch(`/api/getpost/modify/${post_id}`, {
         title: post.title,
@@ -125,7 +120,7 @@ const editPostFB = (post_id = null, post = {}) => {
       })
       .then(function (response) {
         dispatch(editPost(post_id, { ...post }));
-        history.replace("/");
+        history.replace('/');
       })
       .catch((error) => {
         console.log(error);
@@ -140,7 +135,7 @@ const getOnePostDB = (post_id) => {
       .then(function (response) {
         const post = response.data;
         console.log(post);
-        console.log("thunk");
+        console.log('thunk');
         dispatch(getOnePost(post));
       })
       .catch(function (error) {

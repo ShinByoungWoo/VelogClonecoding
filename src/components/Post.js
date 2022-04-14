@@ -1,22 +1,10 @@
 import React from "react";
 import { history } from "../redux/configureStore";
-// import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { Grid, Text, Image } from "../elements/Index";
 import styled from "styled-components";
 import { FaHeart } from "react-icons/fa";
 
 const Post = (props) => {
-  console.log(props);
-  // const dispatch = useDispatch();
-
-  // console.log(
-  //   props.title,
-  //   props.content,
-  //   props.createDate,
-  //   props.img_url,
-  //   props.post_id
-  // );
 
   const title = props.title;
   const nickname = props.nickname;
@@ -34,9 +22,7 @@ const Post = (props) => {
         <Cards onClick={()=>{
           history.push(`/post/${post_id}`)
         }}>
-          {/* <Link to="/Detail"> */}
             <Image size="cover" border_radius="10px" src={img_url} />
-          {/* </Link> */}
           <Grid padding="16px 16px 5px 16px">
             <Text size="0.975rem" bold>
               {title}
@@ -68,7 +54,6 @@ const Cards = styled.div`
   width: 20rem;
   min-width: 20rem;
   height: auto;
-  ${"" /* border: 1px solid black; */}
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 50%) 0px 4px 16px 0px;
   :hover {
